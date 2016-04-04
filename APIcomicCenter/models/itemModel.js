@@ -3,14 +3,25 @@
 var mongoose = require('mongoose');
 
 var itemSchema = mongoose.Schema({
-    ISBN: Number,
+    ISBN: String,
     titulo: String,
     editorial: String,
     autor: String,
     genero: [String],
     num_paginas: Number,
     anio_edit: Date,
-    tipo:String
+    tipo: String
 });
-
-var Item = mongoose.model('Item',itemSchema);
+itemSchema.statics.list = function (sort, cb) {
+    var query = Item.find({});
+    query.sort(sort);
+    query.exec(function (err, rows) {
+        if (err) {
+            cb(err);
+            return;
+        }
+        cb(null, rows);
+        return;
+    });
+}
+var Item = mongoose.model('Item', itemSchema);

@@ -9,9 +9,12 @@ require('./lib/connectDB');
 //modelos
 require('./models/usuarioModel');
 require('./models/itemModel');
-//Rutas web
+//rutas web
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
+//rutas api
+var comic_shop = require('./routes/API/v1/ShopAPI');
 
 var app = express();
 
@@ -29,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/api/v1',comic_shop);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
