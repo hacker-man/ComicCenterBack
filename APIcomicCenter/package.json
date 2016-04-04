@@ -7,6 +7,7 @@
     "load_db": "node load_db.js"
   },
   "dependencies": {
+    "async": "^2.0.0-rc.2",
     "basic-auth": "^1.0.3",
     "body-parser": "~1.13.2",
     "cookie-parser": "~1.3.5",

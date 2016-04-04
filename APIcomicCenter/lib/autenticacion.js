@@ -9,8 +9,9 @@ var hash = require('hash.js');
 var auth = function () {
     return function (req, res, next) {
         var userReq = basicAuth(req) || "";
+        console.log(userReq.name);
         var usuario = Usuario.find({
-            nickname: userReq.nickname
+            nickname: userReq.name
         });
         usuario.exec(function (err, rows) {
             if (err) {
