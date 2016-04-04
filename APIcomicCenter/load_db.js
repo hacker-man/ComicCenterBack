@@ -6,6 +6,7 @@ require('./models/usuarioModel');
 var mongoose = require('mongoose');
 var Usuario = mongoose.model('Usuario');
 var Item = mongoose.model('Item');
+var hash = require('hash.js');
 var async = require('async');
 var fs = require('fs');
 
@@ -48,7 +49,7 @@ function cargaUsuarios() {
             async.each(usuarios, function cada(item, siguiente) {
                 var usuario = new Usuario({
                     nickname: item.nickname,
-                    password: item.password,
+                    password: hash.sha256().update(item.password).digest('hex'),
                     poblacion: item.poblacion,
                     provincia: item.provincia,
                     CP: item.CP,
@@ -117,7 +118,7 @@ function cargaItems() {
 }
 
 
-     eliminaUsuarios()
+eliminaUsuarios()
     .then(eliminaItems)
     .then(cargaUsuarios)
     .then(cargaItems)

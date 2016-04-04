@@ -5,7 +5,9 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Usuario = mongoose.model('Usuario');
 var Item = mongoose.model('Item');
-router.get('/', function(req, res, next) {
+var auth = require('../../../lib/autenticacion');
+
+router.get('/',auth(),function(req, res, next) {
   res.send('Hola Soy tu API');
 });
 
