@@ -1,4 +1,4 @@
-angular.module("movieRent").service("LogUser", ["$window", function ($window) {
+angular.module("comicApp").service("LogUser", ["$window", function ($window) {
 
     this.setLogin = function(user) {
         // Guardar el usuario en memoria del navegador

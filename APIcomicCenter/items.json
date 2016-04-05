@@ -3,6 +3,29 @@
         {
             "ISBN": "978-84-678-4523-5",
             "titulo": "Deadpool Nº3",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
+            "editorial": "Norma Editorial",
+            "autor": "Rob Liefeld",
+            "genero": ["Acción", "Aventura"],
+            "num_paginas": 60,
+            "anio_edit": "2010-04-04",
+            "tipo": "Comic"
+         },
+        {
+            "ISBN": "978-84-678-4523-5",
+            "titulo": "Deadpool Nº8",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
+            "editorial": "Norma Editorial",
+            "autor": "Rob Liefeld",
+            "genero": ["Acción", "Seinen"],
+            "num_paginas": 60,
+            "anio_edit": "2010-04-04",
+            "tipo": "Manga"
+         },
+        {
+            "ISBN": "978-84-678-4523-5",
+            "titulo": "Deadpool Nº3",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
             "editorial": "Norma Editorial",
             "autor": "Rob Liefeld",
             "genero": ["Acción", "Aventura"],
@@ -13,6 +36,7 @@
         {
             "ISBN": "978-84-678-4523-5",
             "titulo": "Deadpool Nº3",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
             "editorial": "Norma Editorial",
             "autor": "Rob Liefeld",
             "genero": ["Acción", "Aventura"],
@@ -23,6 +47,7 @@
         {
             "ISBN": "978-84-678-4523-5",
             "titulo": "Deadpool Nº3",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
             "editorial": "Norma Editorial",
             "autor": "Rob Liefeld",
             "genero": ["Acción", "Aventura"],
@@ -33,6 +58,7 @@
         {
             "ISBN": "978-84-678-4523-5",
             "titulo": "Deadpool Nº3",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
             "editorial": "Norma Editorial",
             "autor": "Rob Liefeld",
             "genero": ["Acción", "Aventura"],
@@ -43,6 +69,7 @@
         {
             "ISBN": "978-84-678-4523-5",
             "titulo": "Deadpool Nº3",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
             "editorial": "Norma Editorial",
             "autor": "Rob Liefeld",
             "genero": ["Acción", "Aventura"],
@@ -53,6 +80,7 @@
         {
             "ISBN": "978-84-678-4523-5",
             "titulo": "Deadpool Nº3",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
             "editorial": "Norma Editorial",
             "autor": "Rob Liefeld",
             "genero": ["Acción", "Aventura"],
@@ -63,6 +91,7 @@
         {
             "ISBN": "978-84-678-4523-5",
             "titulo": "Deadpool Nº3",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
             "editorial": "Norma Editorial",
             "autor": "Rob Liefeld",
             "genero": ["Acción", "Aventura"],
@@ -73,26 +102,7 @@
         {
             "ISBN": "978-84-678-4523-5",
             "titulo": "Deadpool Nº3",
-            "editorial": "Norma Editorial",
-            "autor": "Rob Liefeld",
-            "genero": ["Acción", "Aventura"],
-            "num_paginas": 60,
-            "anio_edit": "2010-04-04",
-            "tipo": "Comic"
-         },
-        {
-            "ISBN": "978-84-678-4523-5",
-            "titulo": "Deadpool Nº3",
-            "editorial": "Norma Editorial",
-            "autor": "Rob Liefeld",
-            "genero": ["Acción", "Aventura"],
-            "num_paginas": 60,
-            "anio_edit": "2010-04-04",
-            "tipo": "Comic"
-         },
-        {
-            "ISBN": "978-84-678-4523-5",
-            "titulo": "Deadpool Nº3",
+            "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
             "editorial": "Norma Editorial",
             "autor": "Rob Liefeld",
             "genero": ["Acción", "Aventura"],

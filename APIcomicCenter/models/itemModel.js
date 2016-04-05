@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var itemSchema = mongoose.Schema({
     ISBN: String,
     titulo: String,
+    url_portada: String,
     editorial: String,
     autor: String,
     genero: [String],
@@ -12,8 +13,8 @@ var itemSchema = mongoose.Schema({
     anio_edit: Date,
     tipo: String
 });
-itemSchema.statics.list = function (sort, cb) {
-    var query = Item.find({});
+itemSchema.statics.list = function (filtro,sort,cb) {
+    var query = Item.find(filtro);
     query.sort(sort);
     query.exec(function (err, rows) {
         if (err) {

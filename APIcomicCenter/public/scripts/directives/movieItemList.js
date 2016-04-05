@@ -1,4 +1,4 @@
-angular.module("movieRent").directive("mediaItemList",function(){
+angular.module("comicApp").directive("mediaItemList",function(){
   return {
       restrict:"AE",
       templateUrl:"views/movieItemList.html",
@@ -7,5 +7,5 @@ angular.module("movieRent").directive("mediaItemList",function(){
           type:"=",
           rent:"="
       }
-  };  
+  };
 });

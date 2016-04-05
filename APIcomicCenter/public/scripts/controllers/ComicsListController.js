@@ -1,10 +1,9 @@
-angular.module("movieRent")
-    .controller("MoviesListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", "LogUser", function ($scope, $log, $window, $location, $filter, APIClient, paths, LogUser) {
+angular.module("comicApp")
+    .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", function ($scope, $log, $window, $location, $filter, APIClient, paths) {
         //scope init:
         $scope.model = [];
-        $scope.type = "all";
         //controller methods:
-        $scope.uiState = 'loading';
+      /*  $scope.uiState = 'loading';
         $scope.rentMovie = function (movie) {
             movie.user_rent = LogUser.getLogin();
             movie.rent_date = $filter('date')(new Date(), 'yyyy-MM-dd');
@@ -17,20 +16,15 @@ angular.module("movieRent")
                     console.log("ERROR AL ALQUILAR PELICULA", error);
                 }
             );
-        }
+        }*/
 
         //Controller start:
         $scope.uiState = 'loading';
-        APIClient.getMovies().then(
+        APIClient.getItems().then(
             //Promesa resuelta:
             function (data) {
                 $log.log("SUCCESS", data);
-                for (var i in data) {
-                    var movie = data[i];
-                    if (movie.user_rent == "") {
-                        $scope.model.push(movie);
-                    }
-                }
+                $scope.model = data.items;
                 if ($scope.model.length == 0)
                     $scope.uiState = 'blank'
                 else {

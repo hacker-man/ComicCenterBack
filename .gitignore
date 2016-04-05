@@ -1,5 +1,5 @@
 #node_modules
 APIcomicCenter/node_modules/
-APIcomicCenter/public/client/node_modules/
+APIcomicCenter/public/node_modules/
 #bower
-APIcomicCenter/public/client/bower_components/
+APIcomicCenter/public/bower_components/

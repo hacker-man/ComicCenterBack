@@ -91,6 +91,7 @@ function cargaItems() {
                 var item = new Item({
                     ISBN: item.ISBN,
                     titulo: item.titulo,
+                    url_portada:item.url_portada,
                     editorial: item.editorial,
                     autor: item.autor,
                     genero: item.genero,
