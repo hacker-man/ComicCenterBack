@@ -36126,7 +36126,15 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 })(window, window.angular);
 
-;angular.module("comicApp", []);
+;angular.module("comicApp", ["ngRoute"])
+  .config(["$routeProvider", "paths", function ($routeProvider, paths){
+    $routeProvider.when(paths.registeruser, {
+              templateUrl: "/views/UserRegister.html"
+          }).otherwise({
+              templateUrl:'views/404.html'
+          })
+    }]
+  );
 
 ;angular.module("comicApp")
     .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", function ($scope, $log, $window, $location, $filter, APIClient, paths) {
@@ -36336,10 +36344,6 @@ function($scope, APIClient) {
 
 ;angular.module("comicApp").constant("paths", {
     home: "/",
-    movies: "/movies",
-    movieDetail: "/movies/:id",
-    rentMovies: "/movies/rent",
-    contribMovies: "/movies/contrib",
-    uploadMovie: "/movies/upload",
+    registeruser: "/register",
     notFound: "/not-found"
 });
