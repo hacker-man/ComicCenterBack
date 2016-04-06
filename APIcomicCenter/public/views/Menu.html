@@ -24,15 +24,19 @@
                     <ul class="dropdown-menu animated flipInX" role="menu">
                         <li>
                             <a href="#">
-                                SubItem 01</a>
+                                superheroes</a>
                         </li>
                         <li>
                             <a href="#">
-                                SubItem 02</a>
+                                sci-fi</a>
                         </li>
                         <li>
                             <a href="#">
-                                SubItem 03</a>
+                               Adventures</a>
+                        </li>
+                        <li>
+                            <a href="#">
+                               All comics</a>
                         </li>
                     </ul>
                 </li>
@@ -42,17 +46,27 @@
                     <ul class="dropdown-menu animated flipInX" role="menu">
                         <li>
                             <a href="#">
-                                SubItem 01</a>
+                                shonen</a>
                         </li>
                         <li>
                             <a href="#">
-                                SubItem 02</a>
+                                seinen</a>
                         </li>
                         <li>
                             <a href="#">
-                                SubItem 03</a>
+                                mecha</a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                All mangas</a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="#">send your comics bro</a>
+                </li>
+                <li>
+                    <a href="#">My Account</a>
                 </li>
             </ul>
 
@@ -65,58 +79,12 @@
                         <span class="glyphicon glyphicon-user"></span>
                         <span class="caret"></span>
                     </a>
-                    <ul id="login-dp" class="dropdown-menu">
-                        <li>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!-- Login second -->
-                                    <div class="social-buttons">
-                                        <div class="iconSpecial">
-                                            <i class="glyphicon glyphicon-user"></i>Login</div>
-                                    </div>
-                                    <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputEmail2">login</label>
-                                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Username" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only" for="exampleInputPassword2">Senha</label>
-                                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
-                                            <div class="help-block text-right">
-                                                <a href="">Need help?</a>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                                        </div>
-                                        <div class="checkbox text-dark">
-                                            <label>
-                                                <input type="checkbox">
-                                                Remember me
-                                            </label>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                  <ul id="login-dp" class="dropdown-menu"  ng-include="'views/loginMenu.html'"></ul>
                 </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
-    <nav class="" role="navigation">
-        <div class="container-fluid">
-            <div class="hidden-xs col-sm-12 col-md-12 col-lg-12 " style="z-index:-1">
-                <img class="img-responsive" src="http://i66.tinypic.com/2e4vjur.jpg" alt=""/>
-
-            </div>
-
-            <div class="visible-xs">
-                <img class="img-responsive" src=" http://i.ebayimg.com/00/s/NTAwWDE1MDA=/z/9NAAAOSwAYtWGEcE/$_57.JPG" alt=""/>
-
-            </div>
-
-        </div>
-    </nav>
+   <div ng-include="'views/BannerMenu.html'"></div>
+  </nav>
