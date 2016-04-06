@@ -1,13 +1,18 @@
 angular.module('comicApp')
-    .controller('LoginController', ["$scope", "APIClient", function($scope, APIClient) {
+    .controller('LoginController', ["$scope","$window","APIClient","LogUser", function($scope,$window,APIClient,LogUser) {
         //scope init:
         $scope.model = {}
-            //scope methods:
+        //scope methods:
         $scope.logUser = function() {
             APIClient.logIn($scope.model).then(
                 function(response) {
+                    LogUser.setLogin($scope.model.nickname);
+                    var user = LogUser.getLogin();
+                    console.log("Usuario logeado como",user);
+                    var url = "/#";
+                    $window.location.href = url;
                     $scope.model = {};
-                    console.log('Login Hecho',response);
+                    console.log('Login Hecho,Estoy dentro',response);
                 },
                 function(error) {
                     console.log("error al hacer Login",error);

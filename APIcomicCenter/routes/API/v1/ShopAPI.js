@@ -87,6 +87,7 @@ router.post('/users', function(req, res) {
         }
         if (rows.length > 0) {
             res.status(409).json({
+                result: false,
                 status: "conflict",
                 info: "nicknameRegistrado",
             });

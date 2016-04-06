@@ -36181,15 +36181,20 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     }]);
 
 ;angular.module('comicApp')
-    .controller('LoginController', ["$scope", "APIClient", function($scope, APIClient) {
+    .controller('LoginController', ["$scope","$window","APIClient","LogUser", function($scope,$window,APIClient,LogUser) {
         //scope init:
         $scope.model = {}
-            //scope methods:
+        //scope methods:
         $scope.logUser = function() {
             APIClient.logIn($scope.model).then(
                 function(response) {
+                    LogUser.setLogin($scope.model.nickname);
+                    var user = LogUser.getLogin();
+                    console.log("Usuario logeado como",user);
+                    var url = "/#";
+                    $window.location.href = url;
                     $scope.model = {};
-                    console.log('Login Hecho',response);
+                    console.log('Login Hecho,Estoy dentro',response);
                 },
                 function(error) {
                     console.log("error al hacer Login",error);
@@ -36206,10 +36211,13 @@ function($scope, APIClient) {
             $scope.saveUser = function() {
                 APIClient.registerUser($scope.model).then(
                     function(movie) {
+                        $scope.successMessage = "¡User saved!";
                         $scope.model = {};
+                        $scope.registerForm.$setPristine();
                         console.log("USUARIO REGISTRADO", movie);
                     },
                     function(error) {
+                        $scope.errorMessage = "This nickname is already in use";
                         console.log("ERROR AL REGISTRAR USUARIO", error);
                     }
                 )
@@ -36332,17 +36340,17 @@ function($scope, APIClient) {
 
 ;angular.module("comicApp").service("LogUser", ["$window", function ($window) {
 
-    this.setLogin = function(user) {
+    this.setLogin = function(nick) {
         // Guardar el usuario en memoria del navegador
-        window.localStorage.setItem("user", user);
+        window.localStorage.setItem("nick",nick);
     };
     this.getLogin = function() {
         // Recuperamos el usuario guardado en el navegador
         // console.log (window.localStorage.getItem("user"));
-        return window.localStorage.getItem("user");
+        return window.localStorage.getItem("nick");
     };
     this.isLogin = function() {
-        var user = window.localStorage.getItem("user") || "";
+        var user = window.localStorage.getItem("nick") || "";
         if (user == "") {
             return false;
         } else {

@@ -1,33 +1,69 @@
 <div class="container" ng-controller="UserRegisterController">
+    <div class="alert alert-success col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" ng-show="successMessage">
+        {{successMessage}}
+    </div>
+    <div class="alert alert-danger col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" ng-show="errorMessage">
+        {{errorMessage}}
+    </div>
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
             <form name="registerForm" ng-submit="saveUser()" novalidate>
-                <h2>Please Sign Up <small>It's free and always will be.</small></h2>
+                <h2>Please Sign Up
+                    <small>It's free and always will be.</small>
+                </h2>
                 <hr class="colorgraph">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-success':registerForm.nickname.$valid,
+                           'has-error':registerForm.nickname.$invalid}">
                             <input type="text" name="nickname" ng-model="model.nickname" class="form-control input-lg" placeholder="Nickname" tabindex="1" required>
+                            <div class="text-danger" ng-show="registerForm.nickname.$dirty && registerForm.nickname.$error.required">
+                                The nickname is required
+                            </div>
                         </div>
                     </div>
+
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                            <input type="password" name="password" ng-model="model.password" class="form-control input-lg" placeholder="Password" tabindex="2" required>
+                        <div class="form-group" ng-class="{'has-success':registerForm.password.$valid,
+                           'has-error':registerForm.password.$invalid}">
+                            <input type="password" maxlength="20" ng-minlength="8" ng-maxlength="20" name="password" ng-model="model.password" class="form-control input-lg" placeholder="Password" tabindex="2" required>
+                            <div class="text-danger" ng-show="registerForm.password.$dirty && registerForm.password.$error.required">
+                                The password is required
+                            </div>
+                            <div class="text-warning" ng-show="((registerForm.password.$error.number || registerForm.password.$error.minlength  || registerForm.password.$error.maxlength) && registerForm.password.$dirty)">
+                                the password must be at least 8 characters long
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" ng-class="{'has-success':registerForm.email.$valid,
+                   'has-error':registerForm.email.$invalid}">
                     <input type="email" name="email" ng-model="model.email" class="form-control input-lg" placeholder="Email Address" tabindex="3" required>
+                    <div class="text-danger" ng-show="registerForm.email.$dirty && registerForm.email.$error.required">
+                        The email is required
+                    </div>
+                    <div class="text-warning" ng-show="registerForm.email.$dirty && registerForm.email.$error.email">
+                        Invalid email Adress
+                    </div>
                 </div>
-                <div class="form-group">
-                    <input type="tel" name="tlf" ng-model="model.tlf" class="form-control input-lg" placeholder="Phone Number" tabindex="4" required>
+                <div class="form-group" ng-class="{'has-success':registerForm.tlf.$valid,
+                   'has-error':registerForm.tlf.$invalid}">
+                    <input type="tel" maxlength="9" ng-minlength="9" ng-maxlength="9" name="tlf" ng-model="model.tlf" class="form-control input-lg" placeholder="Phone Number" tabindex="4" required>
+                    <div class="text-warning" ng-show="registerForm.tlf.$dirty && registerForm.tlf.$error.required">
+                        The phone number is required
+                    </div>
+                    <div class="text-warning" ng-show="((registerForm.tlf.$error.number || registerForm.tlf.$error.minlength  || registerForm.tlf.$error.maxlength) && registerForm.tlf.$dirty)">
+                        The phone number must be a number of 9 digits
+                    </div>
                 </div>
                 <hr class="colorgraph">
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
-                        <input type="submit" ng-disabled="uploadForm.$invalid" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="5">
+                        <input type="submit" ng-disabled="registerForm.$invalid" value="Register" class="btn btn-primary btn-block btn-lg" tabindex="5">
                     </div>
-                    <div class="col-xs-12 col-md-6"><a href="#" class="btn btn-success btn-block btn-lg">Sign In</a></div>
+                    <div class="col-xs-12 col-md-6">
+                        <a href="#" class="btn btn-success btn-block btn-lg">Sign In</a>
+                    </div>
                 </div>
             </form>
         </div>
