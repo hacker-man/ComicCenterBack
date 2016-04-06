@@ -36126,10 +36126,12 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 })(window, window.angular);
 
-;angular.module("comicApp", ["ngRoute"])
+;angular.module("comicApp", ["ngRoute","URL"])
   .config(["$routeProvider", "paths", function ($routeProvider, paths){
     $routeProvider.when(paths.registeruser, {
               templateUrl: "/views/UserRegister.html"
+          }).when(paths.loginPath,{
+            templateUrl:"views/login.html"
           }).otherwise({
               templateUrl:'views/404.html'
           })
@@ -36178,14 +36180,30 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         );
     }]);
 
+;angular.module('comicApp')
+    .controller('LoginController', ["$scope", "APIClient", function($scope, APIClient) {
+        //scope init:
+        $scope.model = {}
+            //scope methods:
+        $scope.logUser = function() {
+            APIClient.logIn($scope.model).then(
+                function(response) {
+                    $scope.model = {};
+                    console.log('Login Hecho',response);
+                },
+                function(error) {
+                    console.log("error al hacer Login",error);
+                }
+            );
+        }
+    }]);
+
 ;angular.module("comicApp")
 .controller("UserRegisterController", ["$scope", "APIClient",
 function($scope, APIClient) {
             //scope init:
             $scope.model = {};
             $scope.saveUser = function() {
-                console.log($scope.model);
-                console.log("se ejecuta saveUser()");
                 APIClient.registerUser($scope.model).then(
                     function(movie) {
                         $scope.model = {};
@@ -36210,8 +36228,8 @@ function($scope, APIClient) {
   };
 });
 
-;angular.module("comicApp").service("APIClient", ["$http", "$q", "$filter", "apiPaths",
-    function($http, $q, $filter, apiPaths) {
+;angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "URL",
+    function($http, $q, apiPaths, URL) {
 
         this.apiRequest = function(url) {
 
@@ -36235,6 +36253,13 @@ function($scope, APIClient) {
 
         };
 
+        this.getItem = function(itemID) {
+            var url = URL.resolve(apiPaths.itemDetail, {
+                id: itemID
+            });
+            return this.apiRequest(url);
+        };
+
         this.registerUser = function(user) {
             var deferred = $q.defer();
             $http.post(apiPaths.users, user).then(
@@ -36242,7 +36267,20 @@ function($scope, APIClient) {
                     deferred.resolve(response.data);
                 },
                 function(response) {
-                    deferred.reject(respone.data);
+                    deferred.reject(response.data);
+                }
+            );
+            return deferred.promise;
+        };
+
+        this.logIn = function(credentials) {
+            var deferred = $q.defer();
+            $http.post(apiPaths.loginApiPath, credentials).then(
+                function(response) {
+                    deferred.resolve(response.data);
+                },
+                function(response) {
+                    deferred.reject(response.data);
                 }
             );
             return deferred.promise;
@@ -36339,11 +36377,14 @@ function($scope, APIClient) {
 ]);
 ;angular.module("comicApp").value("apiPaths", {
     items: "/api/v1/items",
-    users:"/api/v1/users"
+    itemDetail: "/api/v1/items/:id",
+    users:"/api/v1/users",
+    loginApiPath: "/api/v1/login"
 });
 
 ;angular.module("comicApp").constant("paths", {
     home: "/",
     registeruser: "/register",
+    loginPath: "/login",
     notFound: "/not-found"
 });

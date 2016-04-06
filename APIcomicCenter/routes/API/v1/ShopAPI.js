@@ -54,11 +54,30 @@ router.get('/items', function(req, res, next) {
         });
     });
 });
+router.get('/items/:id', function(req, res) {
+    var search_item = Item.find({
+        _id: req.params.id
+    });
+    search_item.exec(function(err, row) {
+        if (err) {
+            res.status(400).json({
+                result: false,
+                status: 'Bad Request',
+                err: err
+            });
+        }
+        res.status(200).json({
+            result: true,
+            status: 'OK',
+            item: row
+        });
 
+    });
+});
 router.post('/users', function(req, res) {
 
     var user = new Usuario(req.body);
-    req.body.password = hash.sha256().update(req.body.password).digest('hex');
+    //req.body.password = hash.sha256().update(req.body.password).digest('hex');
     var nuevo_usuario = Usuario.find({
         nickname: req.body.nickname
     });
@@ -98,13 +117,13 @@ router.post('/users', function(req, res) {
 router.post('/items', function(req, res) {
     var item = new Item(req.body);
     item.save(function(err, newItem) {
-      if (err) {
-          res.status(400).json({
-              result: false,
-              status: 'Bad Request',
-              err: err
-          });
-          return;
+        if (err) {
+            res.status(400).json({
+                result: false,
+                status: 'Bad Request',
+                err: err
+            });
+            return;
         }
         res.status(200).json({
             result: true,
@@ -114,25 +133,73 @@ router.post('/items', function(req, res) {
     });
 
 });
-router.put('/users/:id', function (req, res) {
-    req.body.password = hash.sha256().update(req.body.password).digest('hex');
-    Usuario.update({_id:req.params.id},{$set:req.body},{multi:true},function(err,data){
-        if(err){
-            res.json({result:false,err:err});
+router.post('/login', function(req, res) {
+    //var user = new Usuario(req.body);
+    var login_usuario = Usuario.find({
+        nickname: req.body.nickname,
+        password: req.body.password
+    });
+    login_usuario.exec(function(err, rows) {
+        if (err) {
             return;
         }
-        res.json({result:true,row:data});
+        if (rows.length == 0) {
+            res.status(401).json({
+                result:false,
+                info: "passOrNickInvalid",
+            });
+        } else {
+            res.status(200).json({
+                result:true,
+                info: "LoginOK"
+            })
+        }
+
+    });
+});
+router.put('/users/:id', function(req, res) {
+    req.body.password = hash.sha256().update(req.body.password).digest('hex');
+    Usuario.update({
+        _id: req.params.id
+    }, {
+        $set: req.body
+    }, {
+        multi: true
+    }, function(err, data) {
+        if (err) {
+            res.json({
+                result: false,
+                err: err
+            });
+            return;
+        }
+        res.json({
+            result: true,
+            row: data
+        });
     });
 
 });
 
-router.put('/items/:id',function(req,res){
-  Item.update({_id:req.params.id},{$set:req.body},{multi:true},function(err,data){
-    if(err){
-        res.json({result:false,err:err});
-        return;
-    }
-    res.json({result:true,row:data});
-  });
+router.put('/items/:id', function(req, res) {
+    Item.update({
+        _id: req.params.id
+    }, {
+        $set: req.body
+    }, {
+        multi: true
+    }, function(err, data) {
+        if (err) {
+            res.json({
+                result: false,
+                err: err
+            });
+            return;
+        }
+        res.json({
+            result: true,
+            row: data
+        });
+    });
 });
 module.exports = router;

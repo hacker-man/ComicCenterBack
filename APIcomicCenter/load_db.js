@@ -49,7 +49,7 @@ function cargaUsuarios() {
             async.each(usuarios, function cada(item, siguiente) {
                 var usuario = new Usuario({
                     nickname: item.nickname,
-                    password: hash.sha256().update(item.password).digest('hex'),
+                    password: item.password,//hash.sha256().update(item.password).digest('hex'),
                     poblacion: item.poblacion,
                     provincia: item.provincia,
                     CP: item.CP,

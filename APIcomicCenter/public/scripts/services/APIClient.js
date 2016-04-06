@@ -1,5 +1,5 @@
-angular.module("comicApp").service("APIClient", ["$http", "$q", "$filter", "apiPaths",
-    function($http, $q, $filter, apiPaths) {
+angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "URL",
+    function($http, $q, apiPaths, URL) {
 
         this.apiRequest = function(url) {
 
@@ -23,6 +23,13 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "$filter", "apiP
 
         };
 
+        this.getItem = function(itemID) {
+            var url = URL.resolve(apiPaths.itemDetail, {
+                id: itemID
+            });
+            return this.apiRequest(url);
+        };
+
         this.registerUser = function(user) {
             var deferred = $q.defer();
             $http.post(apiPaths.users, user).then(
@@ -30,7 +37,20 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "$filter", "apiP
                     deferred.resolve(response.data);
                 },
                 function(response) {
-                    deferred.reject(respone.data);
+                    deferred.reject(response.data);
+                }
+            );
+            return deferred.promise;
+        };
+
+        this.logIn = function(credentials) {
+            var deferred = $q.defer();
+            $http.post(apiPaths.loginApiPath, credentials).then(
+                function(response) {
+                    deferred.resolve(response.data);
+                },
+                function(response) {
+                    deferred.reject(response.data);
                 }
             );
             return deferred.promise;
