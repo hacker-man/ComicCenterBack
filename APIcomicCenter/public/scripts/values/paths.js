@@ -12,5 +12,6 @@ angular.module("comicApp").constant("paths", {
     itemsMangaShonen:"/items?tipo=manga&genero=shonen",
     itemsMangaSeinen:"/items?tipo=manga&genero=seinen",
     itemsMangaMecha:"/items?tipo=manga&genero=mecha",
+    sellItem:"/sell",
     notFound: "/not-found"
 });

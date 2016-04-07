@@ -23,6 +23,8 @@ angular.module("comicApp", ["ngRoute", "URL"])
             templateUrl: "views/ComicItemList.html"
         }).when(paths.itemsMangaMecha, {
             templateUrl: "views/ComicItemList.html"
+        }).when(paths.sellItem, {
+            templateUrl: "views/SellItem.html"
         }).otherwise({
             templateUrl: 'views/404.html'
         })

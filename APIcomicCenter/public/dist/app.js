@@ -36151,6 +36151,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             templateUrl: "views/ComicItemList.html"
         }).when(paths.itemsMangaMecha, {
             templateUrl: "views/ComicItemList.html"
+        }).when(paths.sellItem, {
+            templateUrl: "views/SellItem.html"
         }).otherwise({
             templateUrl: 'views/404.html'
         })
@@ -36482,5 +36484,6 @@ function($scope, APIClient) {
     itemsMangaShonen:"/items?tipo=manga&genero=shonen",
     itemsMangaSeinen:"/items?tipo=manga&genero=seinen",
     itemsMangaMecha:"/items?tipo=manga&genero=mecha",
+    sellItem:"/sell",
     notFound: "/not-found"
 });
