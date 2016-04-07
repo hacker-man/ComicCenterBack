@@ -36126,27 +36126,41 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 })(window, window.angular);
 
-;angular.module("comicApp", ["ngRoute","URL"])
-  .config(["$routeProvider", "paths", function ($routeProvider, paths){
-    $routeProvider.when(paths.registeruser, {
-              templateUrl: "/views/UserRegister.html"
-          }).when(paths.loginPath,{
-            templateUrl:"views/login.html"
-          }).when(paths.itemsPath,{
-            templateUrl:"views/ComicItemList.html"
-          }).otherwise({
-              templateUrl:'views/404.html'
-          })
-    }]
-  );
+;angular.module("comicApp", ["ngRoute", "URL"])
+    .config(["$routeProvider", "paths", function($routeProvider, paths) {
+        $routeProvider.when(paths.registeruser, {
+            templateUrl: "/views/UserRegister.html"
+        }).when(paths.loginPath, {
+            templateUrl: "views/login.html"
+        }).when(paths.itemsPath, {
+            templateUrl: "views/ComicItemList.html"
+        }).when(paths.itemsComicAll, {
+            templateUrl: "views/ComicItemList.html"
+        }).when(paths.itemsComicAdventure, {
+            templateUrl: "views/ComicItemList.html"
+        }).when(paths.itemsComicHero, {
+            templateUrl: "views/ComicItemList.html"
+        }).when(paths.itemsComicSciFi, {
+            templateUrl: "views/ComicItemList.html"
+        }).when(paths.itemsMangaAll, {
+            templateUrl: "views/ComicItemList.html"
+        }).when(paths.itemsMangaShonen, {
+            templateUrl: "views/ComicItemList.html"
+        }).when(paths.itemsMangaMecha, {
+            templateUrl: "views/ComicItemList.html"
+        }).otherwise({
+            templateUrl: 'views/404.html'
+        })
+    }]);
 
 ;angular.module("comicApp")
     .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", function($scope, $log, $window, $location, $filter, APIClient, paths) {
         //scope init:
         $scope.model = [];
+        $scope.currentPath =  $location.path();
         //Controller start:
         $scope.uiState = 'loading';
-        APIClient.getItems().then(
+        APIClient.getItems($scope.currentPath).then(
             //Promesa resuelta:
             function(data) {
                 $log.log("SUCCESS", data);
@@ -36164,6 +36178,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                 $scope.uiState = 'error';
             }
         );
+        //Listener:
+        $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
+              $scope.currentPath = $location.path();
+        });
     }]);
 
 ;angular.module('comicApp')
@@ -36243,8 +36261,20 @@ function($scope, APIClient) {
   };
 });
 
-;angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "URL",
-    function($http, $q, apiPaths, URL) {
+;angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "paths", "URL",
+    function($http, $q, apiPaths, paths, URL) {
+        //Service propieties:
+        var rutaApi = {}
+        //rutas comics:
+        rutaApi[paths.itemsComicAll] = apiPaths.itemAllComics;
+        rutaApi[paths.itemsComicAdventure] = apiPaths.itemAdventureComics;
+        rutaApi[paths.itemsComicHero] = apiPaths.itemHeroComics;
+        rutaApi[paths.itemsComicSciFi] = apiPaths.itemSciFiComics;
+        //rutas mangas:
+        rutaApi[paths.itemsMangaAll] = apiPaths.itemAllMangas;
+        rutaApi[paths.itemsMangaShonen] = apiPaths.itemShonenMangas;
+        rutaApi[paths.itemsMangaSeinen] = apiPaths.itemSeinenMangas;
+        rutaApi[paths.itemsMangaMecha] = apiPaths.itemMechaMangas;
 
         this.apiRequest = function(url) {
 
@@ -36264,8 +36294,8 @@ function($scope, APIClient) {
         }
 
         this.getItems = function(clientPath) {
-            return this.apiRequest(apiPaths.items);
-
+            console.log(clientPath,rutaApi[clientPath]);
+            return this.apiRequest(rutaApi[clientPath]);
         };
 
         this.getItem = function(itemID) {

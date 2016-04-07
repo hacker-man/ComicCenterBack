@@ -1,5 +1,17 @@
-angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "URL",
-    function($http, $q, apiPaths, URL) {
+angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "paths", "URL",
+    function($http, $q, apiPaths, paths, URL) {
+        //Service propieties:
+        var rutaApi = {}
+        //rutas comics:
+        rutaApi[paths.itemsComicAll] = apiPaths.itemAllComics;
+        rutaApi[paths.itemsComicAdventure] = apiPaths.itemAdventureComics;
+        rutaApi[paths.itemsComicHero] = apiPaths.itemHeroComics;
+        rutaApi[paths.itemsComicSciFi] = apiPaths.itemSciFiComics;
+        //rutas mangas:
+        rutaApi[paths.itemsMangaAll] = apiPaths.itemAllMangas;
+        rutaApi[paths.itemsMangaShonen] = apiPaths.itemShonenMangas;
+        rutaApi[paths.itemsMangaSeinen] = apiPaths.itemSeinenMangas;
+        rutaApi[paths.itemsMangaMecha] = apiPaths.itemMechaMangas;
 
         this.apiRequest = function(url) {
 
@@ -19,8 +31,8 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "URL
         }
 
         this.getItems = function(clientPath) {
-            return this.apiRequest(apiPaths.items);
-
+            console.log(clientPath,rutaApi[clientPath]);
+            return this.apiRequest(rutaApi[clientPath]);
         };
 
         this.getItem = function(itemID) {

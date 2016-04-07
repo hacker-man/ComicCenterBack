@@ -2,9 +2,10 @@ angular.module("comicApp")
     .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", function($scope, $log, $window, $location, $filter, APIClient, paths) {
         //scope init:
         $scope.model = [];
+        $scope.currentPath =  $location.path();
         //Controller start:
         $scope.uiState = 'loading';
-        APIClient.getItems().then(
+        APIClient.getItems($scope.currentPath).then(
             //Promesa resuelta:
             function(data) {
                 $log.log("SUCCESS", data);
@@ -22,4 +23,8 @@ angular.module("comicApp")
                 $scope.uiState = 'error';
             }
         );
+        //Listener:
+        $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
+              $scope.currentPath = $location.path();
+        });
     }]);
