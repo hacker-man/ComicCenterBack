@@ -39,6 +39,7 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
             var url = URL.resolve(apiPaths.itemDetail, {
                 id: itemID
             });
+            console.log("url:",url);
             return this.apiRequest(url);
         };
 

@@ -1,6 +1,7 @@
 angular.module("comicApp").constant("paths", {
     home: "/",
     loginPath: "/login",
+    itemDetail: "/items/:id",
     registeruser: "/register",
     itemsPath:'/items',
     itemsComicAll:"/items/comic-all",

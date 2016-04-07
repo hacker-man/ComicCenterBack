@@ -36132,6 +36132,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             templateUrl: "/views/UserRegister.html"
         }).when(paths.loginPath, {
             templateUrl: "views/login.html"
+         }).when(paths.itemDetail,{
+                controller:"ItemDetailController",
+          			templateUrl: "views/ItemDetail.html"
         }).when(paths.itemsPath, {
             templateUrl: "views/ComicItemList.html"
         }).when(paths.itemsComicAll, {
@@ -36183,6 +36186,29 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
               $scope.currentPath = $location.path();
         });
     }]);
+
+;angular.module("comicApp").controller("ItemDetailController",
+    ["$scope","$routeParams","$location","APIClient","paths",function($scope,$routeParams,$location,APIClient,paths){
+        //scope init:"
+        $scope.model = {};
+        $scope.uiState = 'loading';
+        //Controller init
+        APIClient.getItem($routeParams.id).then(
+            //Pelicula encontrada:
+            function(data){
+                $scope.model = data.item.object;
+                $scope.uiState = 'ideal';
+                console.log(data.item.object);
+                //$scope.$emit("changeTitle",$scope.model.titulo);
+            },
+            //Pelicula no encontrada:
+            function(error){
+                //TODO: improve error management
+                $location.url(paths.notFound);
+            }
+        );
+    }]
+);
 
 ;angular.module('comicApp')
     .controller('LoginController', ["$scope","$window","APIClient","LogUser", function($scope,$window,APIClient,LogUser) {
@@ -36302,6 +36328,7 @@ function($scope, APIClient) {
             var url = URL.resolve(apiPaths.itemDetail, {
                 id: itemID
             });
+            console.log("url:",url);
             return this.apiRequest(url);
         };
 
@@ -36438,6 +36465,7 @@ function($scope, APIClient) {
 ;angular.module("comicApp").constant("paths", {
     home: "/",
     loginPath: "/login",
+    itemDetail: "/items/:id",
     registeruser: "/register",
     itemsPath:'/items',
     itemsComicAll:"/items/comic-all",

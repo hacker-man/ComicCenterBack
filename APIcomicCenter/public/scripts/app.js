@@ -4,6 +4,9 @@ angular.module("comicApp", ["ngRoute", "URL"])
             templateUrl: "/views/UserRegister.html"
         }).when(paths.loginPath, {
             templateUrl: "views/login.html"
+         }).when(paths.itemDetail,{
+                controller:"ItemDetailController",
+          			templateUrl: "views/ItemDetail.html"
         }).when(paths.itemsPath, {
             templateUrl: "views/ComicItemList.html"
         }).when(paths.itemsComicAll, {
