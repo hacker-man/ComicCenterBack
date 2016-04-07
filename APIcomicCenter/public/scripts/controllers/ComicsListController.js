@@ -7,9 +7,9 @@ angular.module("comicApp")
         $scope.uiState = 'loading';
         APIClient.getItems($scope.currentPath).then(
             //Promesa resuelta:
-            function(data) {
-                $log.log("SUCCESS", data);
-                $scope.model = data.items;
+            function(items) {
+                $log.log("SUCCESS", items);
+                $scope.model = items;
                 if ($scope.model.length == 0)
                     $scope.uiState = 'blank'
                 else {
@@ -18,8 +18,8 @@ angular.module("comicApp")
                 }
             },
             //Promesa rechazada:
-            function(data) {
-                $log.error("Error", data);
+            function(err) {
+                $log.error("Error", err);
                 $scope.uiState = 'error';
             }
         );

@@ -36165,9 +36165,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         $scope.uiState = 'loading';
         APIClient.getItems($scope.currentPath).then(
             //Promesa resuelta:
-            function(data) {
-                $log.log("SUCCESS", data);
-                $scope.model = data.items;
+            function(items) {
+                $log.log("SUCCESS", items);
+                $scope.model = items;
                 if ($scope.model.length == 0)
                     $scope.uiState = 'blank'
                 else {
@@ -36176,8 +36176,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                 }
             },
             //Promesa rechazada:
-            function(data) {
-                $log.error("Error", data);
+            function(err) {
+                $log.error("Error", err);
                 $scope.uiState = 'error';
             }
         );
@@ -36195,10 +36195,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         //Controller init
         APIClient.getItem($routeParams.id).then(
             //Pelicula encontrada:
-            function(data){
-                $scope.model = data.item.object;
+            function(item){
+                $scope.model = item;
                 $scope.uiState = 'ideal';
-                console.log(data.item.object);
+                console.log(item);
                 //$scope.$emit("changeTitle",$scope.model.titulo);
             },
             //Pelicula no encontrada:
@@ -36301,6 +36301,8 @@ function($scope, APIClient) {
         rutaApi[paths.itemsMangaShonen] = apiPaths.itemShonenMangas;
         rutaApi[paths.itemsMangaSeinen] = apiPaths.itemSeinenMangas;
         rutaApi[paths.itemsMangaMecha] = apiPaths.itemMechaMangas;
+        //Todos los items:
+        rutaApi[paths.itemsPath] = apiPaths.items;
 
         this.apiRequest = function(url) {
 
@@ -36309,15 +36311,33 @@ function($scope, APIClient) {
             $http.get(url).then(
 
                 function(response) {
-                    deferred.resolve(response.data);
+                    deferred.resolve(response.data.items);
                 },
 
                 function(response) {
-                    deferred.reject(response.data);
+                    deferred.reject(response.data.err);
                 }
             );
             return deferred.promise;
         }
+
+        this.apiRequestDetail = function(url) {
+
+            var deferred = $q.defer();
+
+            $http.get(url).then(
+
+                function(response) {
+                    deferred.resolve(response.data.item[0]);
+                },
+
+                function(response) {
+                    deferred.reject(response.data.err);
+                }
+            );
+            return deferred.promise;
+        }
+
 
         this.getItems = function(clientPath) {
             console.log(clientPath,rutaApi[clientPath]);
@@ -36329,7 +36349,7 @@ function($scope, APIClient) {
                 id: itemID
             });
             console.log("url:",url);
-            return this.apiRequest(url);
+            return this.apiRequestDetail(url);
         };
 
         this.registerUser = function(user) {

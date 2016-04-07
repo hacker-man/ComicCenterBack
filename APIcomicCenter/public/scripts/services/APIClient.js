@@ -12,6 +12,8 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
         rutaApi[paths.itemsMangaShonen] = apiPaths.itemShonenMangas;
         rutaApi[paths.itemsMangaSeinen] = apiPaths.itemSeinenMangas;
         rutaApi[paths.itemsMangaMecha] = apiPaths.itemMechaMangas;
+        //Todos los items:
+        rutaApi[paths.itemsPath] = apiPaths.items;
 
         this.apiRequest = function(url) {
 
@@ -20,15 +22,33 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
             $http.get(url).then(
 
                 function(response) {
-                    deferred.resolve(response.data);
+                    deferred.resolve(response.data.items);
                 },
 
                 function(response) {
-                    deferred.reject(response.data);
+                    deferred.reject(response.data.err);
                 }
             );
             return deferred.promise;
         }
+
+        this.apiRequestDetail = function(url) {
+
+            var deferred = $q.defer();
+
+            $http.get(url).then(
+
+                function(response) {
+                    deferred.resolve(response.data.item[0]);
+                },
+
+                function(response) {
+                    deferred.reject(response.data.err);
+                }
+            );
+            return deferred.promise;
+        }
+
 
         this.getItems = function(clientPath) {
             console.log(clientPath,rutaApi[clientPath]);
@@ -40,7 +60,7 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
                 id: itemID
             });
             console.log("url:",url);
-            return this.apiRequest(url);
+            return this.apiRequestDetail(url);
         };
 
         this.registerUser = function(user) {

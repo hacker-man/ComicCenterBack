@@ -6,10 +6,10 @@ angular.module("comicApp").controller("ItemDetailController",
         //Controller init
         APIClient.getItem($routeParams.id).then(
             //Pelicula encontrada:
-            function(data){
-                $scope.model = data.item.object;
+            function(item){
+                $scope.model = item;
                 $scope.uiState = 'ideal';
-                console.log(data.item.object);
+                console.log(item);
                 //$scope.$emit("changeTitle",$scope.model.titulo);
             },
             //Pelicula no encontrada:
