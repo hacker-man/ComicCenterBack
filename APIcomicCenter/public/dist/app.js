@@ -36160,11 +36160,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", function($scope, $log, $window, $location, $filter, APIClient, paths) {
         //scope init:
         $scope.model = [];
-        $scope.currentPath =  $location.path();
+        $scope.currentPath = $location.url();;
         //Controller start:
         $scope.uiState = 'loading';
         APIClient.getItems($scope.currentPath).then(
-            //Promesa resuelta:
             function(items) {
                 $log.log("SUCCESS", items);
                 $scope.model = items;
@@ -36175,17 +36174,17 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
                 }
             },
-            //Promesa rechazada:
             function(err) {
                 $log.error("Error", err);
                 $scope.uiState = 'error';
-            }
-        );
+            });
         //Listener:
         $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
-              $scope.currentPath = $location.path();
+              $scope.currentPath = $location.url();
+              console.log("cambio");
         });
-    }]);
+    }]
+  );
 
 ;angular.module("comicApp").controller("ItemDetailController",
     ["$scope","$routeParams","$location","APIClient","paths",function($scope,$routeParams,$location,APIClient,paths){
@@ -36237,9 +36236,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     .controller("MenuController", ["$scope", "$location", "paths",
         function($scope, $location, paths) {
           $scope.paths = paths;
-          $scope.currentPath = $location.path();
+          $scope.currentPath = $location.url();
           $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
-                $scope.currentPath = $location.path();
+                $scope.currentPath = $location.url();
           });
         }
     ]);
@@ -36289,21 +36288,6 @@ function($scope, APIClient) {
 
 ;angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "paths", "URL",
     function($http, $q, apiPaths, paths, URL) {
-        //Service propieties:
-        var rutaApi = {}
-        //rutas comics:
-        rutaApi[paths.itemsComicAll] = apiPaths.itemAllComics;
-        rutaApi[paths.itemsComicAdventure] = apiPaths.itemAdventureComics;
-        rutaApi[paths.itemsComicHero] = apiPaths.itemHeroComics;
-        rutaApi[paths.itemsComicSciFi] = apiPaths.itemSciFiComics;
-        //rutas mangas:
-        rutaApi[paths.itemsMangaAll] = apiPaths.itemAllMangas;
-        rutaApi[paths.itemsMangaShonen] = apiPaths.itemShonenMangas;
-        rutaApi[paths.itemsMangaSeinen] = apiPaths.itemSeinenMangas;
-        rutaApi[paths.itemsMangaMecha] = apiPaths.itemMechaMangas;
-        //Todos los items:
-        rutaApi[paths.itemsPath] = apiPaths.items;
-
         this.apiRequest = function(url) {
 
             var deferred = $q.defer();
@@ -36340,8 +36324,9 @@ function($scope, APIClient) {
 
 
         this.getItems = function(clientPath) {
-            console.log(clientPath,rutaApi[clientPath]);
-            return this.apiRequest(rutaApi[clientPath]);
+            console.log("Estoy dentro de getItems",clientPath);
+            var url = apiPaths.version + clientPath;
+            return this.apiRequest(url);
         };
 
         this.getItem = function(itemID) {
@@ -36468,6 +36453,7 @@ function($scope, APIClient) {
 
 ]);
 ;angular.module("comicApp").value("apiPaths", {
+    version:"/api/v1",
     items: "/api/v1/items",
     itemDetail: "/api/v1/items/:id",
     itemAllComics:"/api/v1/items?tipo=comic",
@@ -36488,13 +36474,13 @@ function($scope, APIClient) {
     itemDetail: "/items/:id",
     registeruser: "/register",
     itemsPath:'/items',
-    itemsComicAll:"/items/comic-all",
-    itemsComicAdventure:"/items/comic-adventure",
-    itemsComicHero:"/items/comic-superheroes",
-    itemsComicSciFi:"/items/comic-scifi",
-    itemsMangaAll:"/items/manga-all",
-    itemsMangaShonen:"/items/manga-shonen",
-    itemsMangaSeinen:"/items/manga-seinen",
-    itemsMangaMecha:"/items/manga-mecha",
+    itemsComicAll:"/items?tipo=comic",
+    itemsComicAdventure:"/items?tipo=comic&genero=adventure",
+    itemsComicHero:"/items?tipo=comic&genero=superheroes",
+    itemsComicSciFi:"/items?tipo=comic&genero=sci-fi",
+    itemsMangaAll:"/items?tipo=manga",
+    itemsMangaShonen:"/items?tipo=manga&genero=shonen",
+    itemsMangaSeinen:"/items?tipo=manga&genero=seinen",
+    itemsMangaMecha:"/items?tipo=manga&genero=mecha",
     notFound: "/not-found"
 });

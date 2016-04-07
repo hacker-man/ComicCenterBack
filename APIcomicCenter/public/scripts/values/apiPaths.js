@@ -1,4 +1,5 @@
 angular.module("comicApp").value("apiPaths", {
+    version:"/api/v1",
     items: "/api/v1/items",
     itemDetail: "/api/v1/items/:id",
     itemAllComics:"/api/v1/items?tipo=comic",

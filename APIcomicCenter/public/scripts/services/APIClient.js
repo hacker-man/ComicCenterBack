@@ -1,20 +1,5 @@
 angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "paths", "URL",
     function($http, $q, apiPaths, paths, URL) {
-        //Service propieties:
-        var rutaApi = {}
-        //rutas comics:
-        rutaApi[paths.itemsComicAll] = apiPaths.itemAllComics;
-        rutaApi[paths.itemsComicAdventure] = apiPaths.itemAdventureComics;
-        rutaApi[paths.itemsComicHero] = apiPaths.itemHeroComics;
-        rutaApi[paths.itemsComicSciFi] = apiPaths.itemSciFiComics;
-        //rutas mangas:
-        rutaApi[paths.itemsMangaAll] = apiPaths.itemAllMangas;
-        rutaApi[paths.itemsMangaShonen] = apiPaths.itemShonenMangas;
-        rutaApi[paths.itemsMangaSeinen] = apiPaths.itemSeinenMangas;
-        rutaApi[paths.itemsMangaMecha] = apiPaths.itemMechaMangas;
-        //Todos los items:
-        rutaApi[paths.itemsPath] = apiPaths.items;
-
         this.apiRequest = function(url) {
 
             var deferred = $q.defer();
@@ -51,8 +36,9 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
 
 
         this.getItems = function(clientPath) {
-            console.log(clientPath,rutaApi[clientPath]);
-            return this.apiRequest(rutaApi[clientPath]);
+            console.log("Estoy dentro de getItems",clientPath);
+            var url = apiPaths.version + clientPath;
+            return this.apiRequest(url);
         };
 
         this.getItem = function(itemID) {
