@@ -8,9 +8,6 @@ var usuarioSchema = mongoose.Schema({
         trim: true
     },
     password: String,
-    poblacion: String,
-    provincia: String,
-    CP: Number,
     email: String,
     tlf: String
 });

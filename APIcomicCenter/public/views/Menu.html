@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
+<nav class="navbar navbar-default navbar-static-top" ng-controller="MenuController" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -13,60 +13,60 @@
         <div class="collapse navbar-collapse animated fadeIn" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav animated fadeIn">
                 <li class="active">
-                    <a href="#">What's New</a>
+                    <a href="#{{currentPath}}">What's New {{currentPath}}</a>
                 </li>
                 <li>
-                    <a href="#">About Us</a>
+                    <a href="#{{currentPath}}">About Us</a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Comics<span class="caret"></span>
+                    <a href="#{{currentPath}}" class="dropdown-toggle" data-toggle="dropdown">Comics<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu animated flipInX" role="menu">
                         <li>
-                            <a href="#">
+                            <a href="#{{::paths.itemsComicHero}}">
                                 superheroes</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#{{::paths.itemsComicSciFi}}">
                                 sci-fi</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#{{::paths.itemsComicAdventure}}">
                                Adventures</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#{{::paths.itemsComicAll}}">
                                All comics</a>
                         </li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Mangas<span class="caret"></span>
+                    <a href="#{{currentPath}}" class="dropdown-toggle" data-toggle="dropdown">Mangas<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu animated flipInX" role="menu">
                         <li>
-                            <a href="#">
+                            <a href="#{{::paths.itemsMangaShonen}}">
                                 shonen</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#{{::paths.itemsMangaSeinen}}">
                                 seinen</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#{{::paths.itemsMangaMecha}}">
                                 mecha</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#{{::paths.itemsMangaAll}}">
                                 All mangas</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">send your comics bro</a>
+                    <a href="#{{currentPath}}">send your comics bro</a>
                 </li>
                 <li>
-                    <a href="#">My Account</a>
+                    <a href="#{{currentPath}}">My Account</a>
                 </li>
             </ul>
 
@@ -75,7 +75,7 @@
                     <p class="navbar-text"></p>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="#{{currentPath}}" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span>
                         <span class="caret"></span>
                     </a>

@@ -11,7 +11,9 @@ var itemSchema = mongoose.Schema({
     genero: [String],
     num_paginas: Number,
     anio_edit: Date,
-    tipo: String
+    tipo: String,
+    precio: Number,
+    uploadBy: String
 });
 itemSchema.statics.list = function (filtro,sort,cb) {
     var query = Item.find(filtro);

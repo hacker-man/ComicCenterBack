@@ -9,18 +9,22 @@
             "genero": ["Acción", "Aventura"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Comic"
+            "tipo": "Comic",
+            "precio": 7.50,
+            "uploadBy":"Pepe"
          },
         {
             "ISBN": "978-84-678-4523-5",
-            "titulo": "Deadpool Nº8",
+            "titulo": "Capitan America",
             "url_portada": "http://www.alcalacomics.com/wp-content/uploads/image_gallery-8-1-e1450451270937.jpg",
             "editorial": "Norma Editorial",
             "autor": "Rob Liefeld",
             "genero": ["Acción", "Seinen"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Manga"
+            "tipo": "Manga",
+            "precio": 8.50,
+            "uploadBy":"Josele"
          },
         {
             "ISBN": "978-84-678-4523-5",
@@ -31,7 +35,9 @@
             "genero": ["Acción", "Aventura"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Comic"
+            "tipo": "Comic",
+            "precio": 8.50,
+            "uploadBy":"Josele"
          },
         {
             "ISBN": "978-84-678-4523-5",
@@ -42,7 +48,9 @@
             "genero": ["Acción", "Aventura"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Comic"
+            "tipo": "Comic",
+            "precio": 8.50,
+            "uploadBy":"Josele"
          },
         {
             "ISBN": "978-84-678-4523-5",
@@ -53,7 +61,9 @@
             "genero": ["Acción", "Aventura"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Comic"
+            "tipo": "Comic",
+            "precio": 8.50,
+            "uploadBy":"Josele"
          },
         {
             "ISBN": "978-84-678-4523-5",
@@ -64,7 +74,9 @@
             "genero": ["Acción", "Aventura"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Comic"
+            "tipo": "Comic",
+            "precio": 8.50,
+            "uploadBy":"Josele"
          },
         {
             "ISBN": "978-84-678-4523-5",
@@ -75,7 +87,9 @@
             "genero": ["Acción", "Aventura"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Comic"
+            "tipo": "Comic",
+            "precio": 8.50,
+            "uploadBy":"Josele"
          },
         {
             "ISBN": "978-84-678-4523-5",
@@ -86,7 +100,9 @@
             "genero": ["Acción", "Aventura"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Comic"
+            "tipo": "Comic",
+            "precio": 8.50,
+            "uploadBy":"Josele"
          },
         {
             "ISBN": "978-84-678-4523-5",
@@ -97,7 +113,9 @@
             "genero": ["Acción", "Aventura"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Comic"
+            "tipo": "Comic",
+            "precio": 8.50,
+            "uploadBy":"Josele"
          },
         {
             "ISBN": "978-84-678-4523-5",
@@ -108,7 +126,9 @@
             "genero": ["Acción", "Aventura"],
             "num_paginas": 60,
             "anio_edit": "2010-04-04",
-            "tipo": "Comic"
+            "tipo": "Comic",
+            "precio": 8.50,
+            "uploadBy":"Josele"
          }
 
 

@@ -4,6 +4,8 @@ angular.module("comicApp", ["ngRoute","URL"])
               templateUrl: "/views/UserRegister.html"
           }).when(paths.loginPath,{
             templateUrl:"views/login.html"
+          }).when(paths.itemsPath,{
+            templateUrl:"views/ComicItemList.html"
           }).otherwise({
               templateUrl:'views/404.html'
           })

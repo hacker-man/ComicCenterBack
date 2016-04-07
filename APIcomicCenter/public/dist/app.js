@@ -36132,6 +36132,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
               templateUrl: "/views/UserRegister.html"
           }).when(paths.loginPath,{
             templateUrl:"views/login.html"
+          }).when(paths.itemsPath,{
+            templateUrl:"views/ComicItemList.html"
           }).otherwise({
               templateUrl:'views/404.html'
           })
@@ -36139,30 +36141,14 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
   );
 
 ;angular.module("comicApp")
-    .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", function ($scope, $log, $window, $location, $filter, APIClient, paths) {
+    .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", function($scope, $log, $window, $location, $filter, APIClient, paths) {
         //scope init:
         $scope.model = [];
-        //controller methods:
-      /*  $scope.uiState = 'loading';
-        $scope.rentMovie = function (movie) {
-            movie.user_rent = LogUser.getLogin();
-            movie.rent_date = $filter('date')(new Date(), 'yyyy-MM-dd');
-            APIClient.modifyMovie(movie).then(
-                function (movie) {
-                    console.log("PELICULA ALQUILADA", movie);
-                    $location.url(paths.home);
-                },
-                function (error) {
-                    console.log("ERROR AL ALQUILAR PELICULA", error);
-                }
-            );
-        }*/
-
         //Controller start:
         $scope.uiState = 'loading';
         APIClient.getItems().then(
             //Promesa resuelta:
-            function (data) {
+            function(data) {
                 $log.log("SUCCESS", data);
                 $scope.model = data.items;
                 if ($scope.model.length == 0)
@@ -36173,7 +36159,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                 }
             },
             //Promesa rechazada:
-            function (data) {
+            function(data) {
                 $log.error("Error", data);
                 $scope.uiState = 'error';
             }
@@ -36204,6 +36190,17 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     }]);
 
 ;angular.module("comicApp")
+    .controller("MenuController", ["$scope", "$location", "paths",
+        function($scope, $location, paths) {
+          $scope.paths = paths;
+          $scope.currentPath = $location.path();
+          $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
+                $scope.currentPath = $location.path();
+          });
+        }
+    ]);
+
+;angular.module("comicApp")
 .controller("UserRegisterController", ["$scope", "APIClient",
 function($scope, APIClient) {
             //scope init:
@@ -36223,6 +36220,16 @@ function($scope, APIClient) {
                 )
             };
         }]);
+
+;angular.module("comicApp").directive("bookItemList",function(){
+  return {
+      restrict:"AE",
+      templateUrl:"views/bookItemList.html",
+      scope:{
+          model:"=items",
+      }
+  };
+});
 
 ;angular.module("comicApp").directive("mediaItemList",function(){
   return {
@@ -36256,7 +36263,7 @@ function($scope, APIClient) {
             return deferred.promise;
         }
 
-        this.getItems = function() {
+        this.getItems = function(clientPath) {
             return this.apiRequest(apiPaths.items);
 
         };
@@ -36386,13 +36393,30 @@ function($scope, APIClient) {
 ;angular.module("comicApp").value("apiPaths", {
     items: "/api/v1/items",
     itemDetail: "/api/v1/items/:id",
+    itemAllComics:"/api/v1/items?tipo=comic",
+    itemHeroComics:"/api/v1/items?tipo=comic&genero=superheroes",
+    itemAdventureComics:"/api/v1/items?tipo=comic&genero=adventure",
+    itemSciFiComics:"/api/v1/items?tipo=comic&genero=sci-fi",
+    itemAllMangas: "/api/v1/items?tipo=manga",
+    itemShonenMangas: "/api/v1/items?tipo=manga&genero=shonen",
+    itemSeinenMangas: "/api/v1/items?tipo=manga&genero=seinen",
+    itemMechaMangas: "/api/v1/items?tipo=manga&genero=mecha",
     users:"/api/v1/users",
     loginApiPath: "/api/v1/login"
 });
 
 ;angular.module("comicApp").constant("paths", {
     home: "/",
-    registeruser: "/register",
     loginPath: "/login",
+    registeruser: "/register",
+    itemsPath:'/items',
+    itemsComicAll:"/items/comic-all",
+    itemsComicAdventure:"/items/comic-adventure",
+    itemsComicHero:"/items/comic-superheroes",
+    itemsComicSciFi:"/items/comic-scifi",
+    itemsMangaAll:"/items/manga-all",
+    itemsMangaShonen:"/items/manga-shonen",
+    itemsMangaSeinen:"/items/manga-seinen",
+    itemsMangaMecha:"/items/manga-mecha",
     notFound: "/not-found"
 });

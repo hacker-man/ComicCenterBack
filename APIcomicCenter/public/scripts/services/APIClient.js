@@ -18,7 +18,7 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "URL
             return deferred.promise;
         }
 
-        this.getItems = function() {
+        this.getItems = function(clientPath) {
             return this.apiRequest(apiPaths.items);
 
         };

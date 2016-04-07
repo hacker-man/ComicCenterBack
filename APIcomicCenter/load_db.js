@@ -50,9 +50,6 @@ function cargaUsuarios() {
                 var usuario = new Usuario({
                     nickname: item.nickname,
                     password: item.password,//hash.sha256().update(item.password).digest('hex'),
-                    poblacion: item.poblacion,
-                    provincia: item.provincia,
-                    CP: item.CP,
                     email: item.email,
                     tlf: item.tlf
                 });
@@ -97,7 +94,9 @@ function cargaItems() {
                     genero: item.genero,
                     num_paginas: item.num_paginas,
                     anio_edit: item.anio_edit,
-                    tipo: item.tipo
+                    tipo: item.tipo,
+                    precio: item.precio,
+                    uploadBy: item.uploadBy
                 });
                 item.save(function (err, itemCreado) {
                     if (err) {

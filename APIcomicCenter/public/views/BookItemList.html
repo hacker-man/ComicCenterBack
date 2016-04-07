@@ -1,0 +1,23 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Portada</th>
+            <th>Title</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in model">
+            <td>
+                <img ng-src="{{::item.url_portada}}" alt="{{::item.title}}'s poster" title="{{::item.title}}" width="90px">
+            </td>
+            <td>
+                {{::item.titulo}}
+            </td>
+            <td>
+              {{::item.precio}}
+            </td>
+
+        </tr>
+    </tbody>
+</table>
