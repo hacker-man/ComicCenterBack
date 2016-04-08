@@ -6,9 +6,11 @@ angular.module('comicApp')
         $scope.logUser = function() {
             APIClient.logIn($scope.model).then(
                 function(response) {
-                    LogUser.setLogin($scope.model.nickname);
+                    LogUser.setLogin(response.nickname);
+                    LogUser.setCartNumItems(response.carrito);
+                    var carrito = LogUser.getCart();
                     var user = LogUser.getLogin();
-                    console.log("Usuario logeado como",user);
+                    console.log("Usuario logeado como",user,"items-carrito:",carrito);
                     var url = "/#";
                     $window.location.href = url;
                     $scope.model = {};

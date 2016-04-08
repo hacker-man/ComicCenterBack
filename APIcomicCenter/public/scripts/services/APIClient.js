@@ -66,7 +66,7 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
             var deferred = $q.defer();
             $http.post(apiPaths.loginApiPath, credentials).then(
                 function(response) {
-                    deferred.resolve(response.data);
+                    deferred.resolve(response.data.user[0]);
                 },
                 function(response) {
                     deferred.reject(response.data);

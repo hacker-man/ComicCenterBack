@@ -51,7 +51,8 @@ function cargaUsuarios() {
                     nickname: item.nickname,
                     password: item.password,//hash.sha256().update(item.password).digest('hex'),
                     email: item.email,
-                    tlf: item.tlf
+                    tlf: item.tlf,
+                    carrito: item.carrito
                 });
                 usuario.save(function (err, usuarioCreado) {
                     if (err) {

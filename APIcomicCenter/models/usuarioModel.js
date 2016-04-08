@@ -9,7 +9,8 @@ var usuarioSchema = mongoose.Schema({
     },
     password: String,
     email: String,
-    tlf: String
+    tlf: String,
+    carrito: Number
 });
 usuarioSchema.statics.list = function (sort, cb) {
     var query = Usuario.find({});

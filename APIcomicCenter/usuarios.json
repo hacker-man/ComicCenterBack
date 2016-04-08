@@ -3,92 +3,73 @@
         {
             "nickname": "usuario1",
             "password": "123456",
-            "poblacion": "Alcalá de Henares",
-            "provincia": "Madrid",
-            "CP": 28807,
             "email": "usuario1@email.com",
-            "tlf": "677194949"
+            "tlf": "677194949",
+            "carrito": 3
          },
         {
             "nickname": "usuario2",
             "password": "123456",
-            "poblacion": "Alcalá de Henares",
-            "provincia": "Madrid",
-            "CP": 28808,
             "email": "usuario2@email.com",
-            "tlf": "677194950"
+            "tlf": "677194950",
+            "carrito": 0
          },
         {
             "nickname": "usuario3",
             "password": "123456",
-            "poblacion": "Torrejon de Ardoz",
-            "provincia": "Madrid",
-            "CP": 28907,
             "email": "usuario3@email.com",
-            "tlf": "699194988"
+            "tlf": "699194988",
+            "carrito":0
+
          },
         {
             "nickname": "usuario4",
             "password": "123456",
-            "poblacion": "Coslada",
-            "provincia": "Madrid",
-            "CP": 27807,
             "email": "usuario4@email.com",
-            "tlf": "677194945"
+            "tlf": "677194945",
+            "carrito":0
          },
         {
             "nickname": "usuario5",
             "password": "123456",
-            "poblacion": "Arganda del Rey",
-            "provincia": "Madrid",
-            "CP": 25517,
             "email": "usuario5@email.com",
-            "tlf": "688675656"
+            "tlf": "688675656",
+            "carrito":0
          },
         {
             "nickname": "usuario6",
             "password": "123456",
-            "poblacion": "Arganda del rey",
-            "provincia": "Madrid",
-            "CP": 29907,
             "email": "usuario6@email.com",
-            "tlf": "605412409"
+            "tlf": "605412409",
+            "carrito":0
          },
         {
             "nickname": "usuario7",
             "password": "123456",
-            "poblacion": "Fuenabrada",
-            "provincia": "Madrid",
-            "CP": 29906,
             "email": "usuario7@email.com",
-            "tlf": "677098987"
+            "tlf": "677098987",
+            "carrito":0
          },
         {
             "nickname": "usuario8",
             "password": "123456",
-            "poblacion": "Galapagar",
-            "provincia": "Madrid",
-            "CP": 28808,
             "email": "usuario8@email.com",
-            "tlf": "699080867"
+            "tlf": "699080867",
+            "carrito":0
          },
         {
             "nickname": "usuario9",
             "password": "123456",
-            "poblacion": "Galapagar",
-            "provincia": "Madrid",
-            "CP": 28807,
             "email": "usuario9@email.com",
-            "tlf": "611909045"
+            "tlf": "611909045",
+            "carrito":0
          },
         {
             "nickname": "usuario10",
             "password": "123456",
-            "poblacion": "Galapagar",
-            "provincia": "Madrid",
-            "CP": 28906,
             "email": "usuario10@email.com",
-            "tlf": "699080999"
+            "tlf": "699080999",
+            "carrito":2
          }
 
 

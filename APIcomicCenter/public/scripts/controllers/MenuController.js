@@ -1,12 +1,14 @@
 angular.module("comicApp")
     .controller("MenuController", ["$scope", "$location", "paths", "LogUser",
         function($scope, $location, paths, LogUser) {
+           //scope init:
             $scope.model = {
                 selectedItem: paths.home,
                 user: ""
             }
             $scope.paths = paths;
-            $scope.currentPath = $location.url();
+            $scope.model.user = LogUser.getLogin();
+            $scope.model.cartNumItems = LogUser.getCart();
             //controller methods:
             $scope.getClassForItem = function(item) {
                 if ($scope.model.selectedItem == item) {
@@ -18,7 +20,6 @@ angular.module("comicApp")
             $scope.establishRoute = function(item) {
                     $scope.model.user = LogUser.getLogin();
                     $scope.model.selectedItem = $location.path();
-                    $scope.currentPath = $location.url();
                 }
             //controller listener:
             $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {

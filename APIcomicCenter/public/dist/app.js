@@ -36164,6 +36164,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         var controller = this;
         controller.titles = {}
         controller.titles[paths.home] = "comic center";
+        controller.titles[paths.aboutUs] = "about us";
         controller.titles[paths.itemsComicAll] = "comics";
         controller.titles[paths.itemsMangaAll] = "mangas";
         controller.titles[paths.sellItem] = "share your comic";
@@ -36180,6 +36181,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
         $scope.logout = function() {
             LogUser.setLogin("");
+            LogUser.setCartNumItems("-");
             $location.url(paths.home);
         };
         //scope event listeners:
@@ -36249,9 +36251,11 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         $scope.logUser = function() {
             APIClient.logIn($scope.model).then(
                 function(response) {
-                    LogUser.setLogin($scope.model.nickname);
+                    LogUser.setLogin(response.nickname);
+                    LogUser.setCartNumItems(response.carrito);
+                    var carrito = LogUser.getCart();
                     var user = LogUser.getLogin();
-                    console.log("Usuario logeado como",user);
+                    console.log("Usuario logeado como",user,"items-carrito:",carrito);
                     var url = "/#";
                     $window.location.href = url;
                     $scope.model = {};
@@ -36267,12 +36271,14 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 ;angular.module("comicApp")
     .controller("MenuController", ["$scope", "$location", "paths", "LogUser",
         function($scope, $location, paths, LogUser) {
+           //scope init:
             $scope.model = {
                 selectedItem: paths.home,
                 user: ""
             }
             $scope.paths = paths;
-            $scope.currentPath = $location.url();
+            $scope.model.user = LogUser.getLogin();
+            $scope.model.cartNumItems = LogUser.getCart();
             //controller methods:
             $scope.getClassForItem = function(item) {
                 if ($scope.model.selectedItem == item) {
@@ -36284,7 +36290,6 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             $scope.establishRoute = function(item) {
                     $scope.model.user = LogUser.getLogin();
                     $scope.model.selectedItem = $location.path();
-                    $scope.currentPath = $location.url();
                 }
             //controller listener:
             $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
@@ -36404,7 +36409,7 @@ function($scope, APIClient) {
             var deferred = $q.defer();
             $http.post(apiPaths.loginApiPath, credentials).then(
                 function(response) {
-                    deferred.resolve(response.data);
+                    deferred.resolve(response.data.user[0]);
                 },
                 function(response) {
                     deferred.reject(response.data);
@@ -36463,11 +36468,35 @@ function($scope, APIClient) {
         // Guardar el usuario en memoria del navegador
         window.localStorage.setItem("nick",nick);
     };
+    this.setCartNumItems = function(cartNumItems){
+      //Guarda el numero de elementos en el carrito del usuario en memoria del navegador
+      window.localStorage.setItem("cartNumItems",cartNumItems);
+    }
     this.getLogin = function() {
         // Recuperamos el usuario guardado en el navegador
         // console.log (window.localStorage.getItem("user"));
         return window.localStorage.getItem("nick");
     };
+    this.getCart = function() {
+        return window.localStorage.getItem("cartNumItems");
+    };
+
+    this.addToCart = function(){
+      var items = this.getCart();
+      items++;
+      this.setCartNumItems(items);
+   }
+
+   this.addFromCart = function(){
+     var items = this.getCart();
+     items--;
+     this.setCartNumItems(items);
+   }
+
+   this.deleteAllFromCart = function(){
+     this.setCartNumItems("0");
+   }
+
     this.isLogin = function() {
         var user = window.localStorage.getItem("nick") || "";
         if (user == "") {

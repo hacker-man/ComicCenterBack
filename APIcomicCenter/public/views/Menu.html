@@ -92,7 +92,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-show="isAuth()">
                 <li>
-                    <a href="#" id="userlink" class="fa fa-user">:{{model.user}}</a>
+                    <a href="#" id="userlink" class="fa fa-user">&nbsp;&nbsp;{{model.user}}</a>
+                </li>
+                <li>
+                    <a href="#" id="userlink" class="glyphicon glyphicon-shopping-cart">&nbsp;{{model.cartNumItems}}</a>
                 </li>
                 <li>
                     <a href="#{{paths.home}}" class="glyphicon glyphicon-log-out" ng-click="logout()"></a>

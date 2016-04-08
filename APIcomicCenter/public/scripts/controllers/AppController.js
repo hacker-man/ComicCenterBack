@@ -4,6 +4,7 @@ angular.module("comicApp")
         var controller = this;
         controller.titles = {}
         controller.titles[paths.home] = "comic center";
+        controller.titles[paths.aboutUs] = "about us";
         controller.titles[paths.itemsComicAll] = "comics";
         controller.titles[paths.itemsMangaAll] = "mangas";
         controller.titles[paths.sellItem] = "share your comic";
@@ -20,6 +21,7 @@ angular.module("comicApp")
 
         $scope.logout = function() {
             LogUser.setLogin("");
+            LogUser.setCartNumItems("-");
             $location.url(paths.home);
         };
         //scope event listeners:

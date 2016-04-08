@@ -140,11 +140,11 @@ router.post('/login', function(req, res) {
         nickname: req.body.nickname,
         password: req.body.password
     });
-    login_usuario.exec(function(err, rows) {
+    login_usuario.exec(function(err, row) {
         if (err) {
             return;
         }
-        if (rows.length == 0) {
+        if (row.length == 0) {
             res.status(401).json({
                 result:false,
                 info: "passOrNickInvalid",
@@ -152,7 +152,8 @@ router.post('/login', function(req, res) {
         } else {
             res.status(200).json({
                 result:true,
-                info: "LoginOK"
+                info: "LoginOK",
+                user:row
             })
         }
 
