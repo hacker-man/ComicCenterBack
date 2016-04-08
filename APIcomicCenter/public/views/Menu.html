@@ -1,4 +1,12 @@
 <nav class="navbar navbar-default navbar-static-top" ng-controller="MenuController" role="navigation">
+    <script>
+        $(document).ready(function() {
+            $("#userlink").click(function(event) {
+                event.preventDefault();
+            });
+            console.log('hola soy jquery');
+        });
+    </script>
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -12,11 +20,11 @@
         </div>
         <div class="collapse navbar-collapse animated fadeIn" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav animated fadeIn">
-                <li class="active">
-                    <a href="#{{currentPath}}">What's New {{currentPath}}</a>
+                <li ng-class="getClassForItem(paths.home)">
+                    <a href="#{{::paths.home}}">What's New</a>
                 </li>
-                <li>
-                    <a href="#{{currentPath}}">About Us</a>
+                <li ng-class="getClassForItem(paths.aboutUs)">
+                    <a href="#{{::paths.aboutUs}}">About Us</a>
                 </li>
                 <li class="dropdown">
                     <a href="#{{currentPath}}" class="dropdown-toggle" data-toggle="dropdown">Comics<span class="caret"></span>
@@ -32,11 +40,11 @@
                         </li>
                         <li>
                             <a href="#{{::paths.itemsComicAdventure}}">
-                               Adventures</a>
+                                Adventures</a>
                         </li>
                         <li>
                             <a href="#{{::paths.itemsComicAll}}">
-                               All comics</a>
+                                All comics</a>
                         </li>
                     </ul>
                 </li>
@@ -62,15 +70,15 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#{{paths.sellItem}}">send your comics bro</a>
+                <li ng-class="getClassForItem(paths.sellItem)">
+                    <a ng-show="isAuth()" href="#{{paths.sellItem}}">share a comic</a>
                 </li>
-                <li>
-                    <a href="#{{currentPath}}">My Account</a>
+                <li ng-class="getClassForItem(paths.myAccount)">
+                    <a href= "#{{paths.myAccount}}" ng-show="isAuth()">My Account</a>
                 </li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul ng-show="!isAuth()" class="nav navbar-nav navbar-right">
                 <li>
                     <p class="navbar-text"></p>
                 </li>
@@ -79,12 +87,21 @@
                         <span class="glyphicon glyphicon-user"></span>
                         <span class="caret"></span>
                     </a>
-                  <ul id="login-dp" class="dropdown-menu"  ng-include="'views/loginMenu.html'"></ul>
+                    <ul id="login-dp" class="dropdown-menu" ng-include="'views/loginMenu.html'"></ul>
                 </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right" ng-show="isAuth()">
+                <li>
+                    <a href="#" id="userlink" class="fa fa-user">:{{model.user}}</a>
+                </li>
+                <li>
+                    <a href="#{{paths.home}}" class="glyphicon glyphicon-log-out" ng-click="logout()"></a>
+                </li>
+            </ul>
+
         </div>
         <!-- /.navbar-collapse -->
     </div>
     <!-- /.container-fluid -->
-   <div ng-include="'views/BannerMenu.html'"></div>
-  </nav>
+    <div ng-include="'views/BannerMenu.html'"></div>
+</nav>
