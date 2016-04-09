@@ -1,10 +1,10 @@
 <nav class="navbar navbar-default navbar-static-top" ng-controller="MenuController" role="navigation">
     <script>
         $(document).ready(function() {
-            $("#userlink").click(function(event) {
+            $(".nolink").click(function(event) {
                 event.preventDefault();
             });
-            console.log('hola soy jquery');
+            //console.log('hola soy jquery');
         });
     </script>
     <div class="container-fluid">
@@ -27,7 +27,7 @@
                     <a href="#{{::paths.aboutUs}}">About Us</a>
                 </li>
                 <li class="dropdown">
-                    <a href="#{{currentPath}}" class="dropdown-toggle" data-toggle="dropdown">Comics<span class="caret"></span>
+                    <a href="#" class="dropdown-toggle nolink" data-toggle="dropdown">Comics<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu animated flipInX" role="menu">
                         <li>
@@ -49,7 +49,7 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#{{currentPath}}" class="dropdown-toggle" data-toggle="dropdown">Mangas<span class="caret"></span>
+                    <a href="#" class="dropdown-toggle nolink" data-toggle="dropdown">Mangas<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu animated flipInX" role="menu">
                         <li>
@@ -83,7 +83,7 @@
                     <p class="navbar-text"></p>
                 </li>
                 <li class="dropdown">
-                    <a href="#{{currentPath}}" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="#" class="dropdown-toggle nolink" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-user"></span>
                         <span class="caret"></span>
                     </a>
@@ -92,7 +92,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right" ng-show="isAuth()">
                 <li>
-                    <a href="#" id="userlink" class="fa fa-user">&nbsp;&nbsp;{{model.user}}</a>
+                    <a href="#" class="fa fa-user nolink">&nbsp;&nbsp;{{model.user}}</a>
                 </li>
                 <li>
                     <a href="#" id="userlink" class="glyphicon glyphicon-shopping-cart">&nbsp;{{model.cartNumItems}}</a>

@@ -397,3 +397,101 @@ ul.nav.navbar-nav.navbar-right:last-child {
   margin: 10px 0px 60px;
   border: 1px solid GREY;
 }
+.panel-group {
+  padding-top: 50px;
+}
+.panel-default {
+  border-radius: 0;
+  border: none;
+  background: none;
+  margin-bottom: 0;
+  padding-bottom: 14px;
+}
+.panel-default > .panel-heading {
+  border: none;
+  background: none;
+  padding: 0;
+}
+.panel-default > .panel-heading + .panel-collapse .panel-body {
+  border: none;
+  padding: 0 0 0 32px;
+}
+.panel-default h5 {
+  font: 300 19px "Open Sans", Arial, sans-serif;
+  padding: 0;
+  margin: 0 0 5px;
+}
+.panel-group .panel + .panel {
+  margin-top: 15px;
+}
+.panel-default .accordion-toggle:before {
+  content: "";
+  width: 21px;
+  height: 21px;
+  display: inline-block;
+  background: #e54a1a url(http://keenthemes.com/assets/bootsnipp/toggle-icons.png) no-repeat 6px 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: relative;
+  top: 4px;
+}
+.panel-default .collapsed:before {
+  background: #495764 url(http://keenthemes.com/assets/bootsnipp/toggle-icons.png) no-repeat 6px -148px;
+}
+.panel-default .panel-title:hover .collapsed:before {
+  background-color: #e54a1a;
+}
+.panel-default .accordion-toggle,
+.panel-default .accordion-toggle:focus,
+.panel-default .accordion-toggle:hover,
+.panel-default .accordion-toggle:active {
+  color: #1ea9e3;
+  text-decoration: none;
+}
+.panel-default .collapsed {
+  color: #5f6f7e;
+}
+.lib-panel {
+  margin-bottom: 20Px;
+}
+.lib-panel .row,
+.lib-panel .col-md-6 {
+  padding: 0;
+  background-color: #FFFFFF;
+}
+.lib-panel .lib-row {
+  padding: 0 20px 0 20px;
+}
+.lib-panel .lib-row.lib-header {
+  background-color: #FFFFFF;
+  font-size: 20px;
+  padding: 10px 20px 0 20px;
+}
+.lib-panel .lib-row.lib-header .lib-header-seperator {
+  height: 2px;
+  width: 26px;
+  background-color: #d9d9d9;
+  margin: 7px 0 7px 0;
+}
+.lib-panel .lib-row.lib-desc {
+  position: relative;
+  height: 100%;
+  display: block;
+  font-size: 13px;
+}
+.lib-panel .lib-row.lib-desc a {
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  left: 20px;
+}
+.row-margin-bottom {
+  margin-bottom: 20px;
+}
+.box-shadow {
+  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+.no-padding {
+  padding: 0;
+}

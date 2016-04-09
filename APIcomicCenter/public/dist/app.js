@@ -36225,6 +36225,15 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         //scope init:"
         $scope.model = {};
         $scope.uiState = 'loading';
+        //controller methods:
+        $scope.getOwerview = function(overview) {
+            if (overview == ""){
+                return "Not overview avaible";
+            }
+            else{
+                return overview;
+            }
+        }
         //Controller init
         APIClient.getItem($routeParams.id).then(
             //Pelicula encontrada:
@@ -36340,6 +36349,20 @@ function($scope, APIClient) {
       }
   };
 });
+
+;angular.module("comicApp").filter("join", ["$log", function ($log) {
+	return function (arr, sep) {
+		var items = arr || null;
+		var separator = sep || ", ";
+		if (items == null)
+			return "";
+		if (typeof arr.join === "undefined") {
+			$log.error("The value passed to the filter 'join' must be an array");
+			return "";
+		}
+		return arr.join(separator);
+	};
+  }]);
 
 ;angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "paths", "URL",
     function($http, $q, apiPaths, paths, URL) {

@@ -1,11 +1,72 @@
-<div ng-controller="ItemDetailController">
+<div ng-controller="ItemDetailController" class="container">
+    <script>
+        $(document).ready(function() {
+            $(".accordion-toggle").click(function(event) {
+                event.preventDefault();
+            });
+        });
+    </script>
     <div class="row">
-        <div class="col-xs-12 col-sm-3">
-            <img ng-src="{{::model.url_portada}}" class="img-responsive">
+        <div class="row row-margin-bottom">
+        <div class="col-md-12 no-padding lib-item" data-category="ui">
+        <div class="lib-panel">
+          <div class="row box-shadow">
+            <div class="col-xs-12 col-sm-3 ">
+                <img ng-src="{{::model.url_portada}}" class="img-responsive">
+            </div>
+            <div class="col-xs-12 col-sm-9">
+              <div class="lib-row lib-header">
+                <strong>{{::model.titulo}}</strong>
+                <div class="pull-right" style="color:grey">
+                  upload by:&nbsp;{{::model.uploadBy}}
+                </div>
+
+                <div class="lib-header-seperator"></div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-9">&nbsp;</div>
+            <div class="col-xs-12 col-sm-9">
+                <ul>
+                    <li>
+                        <strong>Reference:</strong>&nbsp;{{::model.ISBN}}
+                    </li>
+                    <li>
+                        <strong>Editorial:</strong>&nbsp;{{::model.editorial}}</li>
+                    <li>
+                        <strong>Autor:</strong>&nbsp;{{::model.autor}}</li>
+                    <li>
+                        <strong>Genero:</strong>&nbsp;{{model.genero | join}}</li>
+                    <li>
+                        <strong>Paginas:</strong>&nbsp;{{::model.num_paginas}}</li>
+                    <li>
+                        <strong>Fecha Edicion:</strong>&nbsp;{{::model.anio_edit | date:"dd/MM/yyyy"}}</li>
+                    <li>
+                        <strong>Precio:</strong>&nbsp;{{::model.precio}}&nbsp; &euro;</i>
+                </li>
+            </ul>
+            <div class="container">
+                <div class="panel-group col-xs-12 col-md-4" id="accordion1">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#genesis">Overview</a>
+                        </div>
+                        <div id="genesis" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <div class="col-xs-12">
+                                    <div class="text-justify">
+                                        <small>{{::getOwerview(model.overview)}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="col-xs-12 col-sm-9">
-            <h1><strong>"<u>{{::model.titulo}}</u>"</strong></h1>
-            <h3>hola</h3>
-        </div>
+      </div>
+      </div>
+      </div>
     </div>
+</div>
 </div>

@@ -3,6 +3,15 @@ angular.module("comicApp").controller("ItemDetailController",
         //scope init:"
         $scope.model = {};
         $scope.uiState = 'loading';
+        //controller methods:
+        $scope.getOwerview = function(overview) {
+            if (overview == ""){
+                return "Not overview avaible";
+            }
+            else{
+                return overview;
+            }
+        }
         //Controller init
         APIClient.getItem($routeParams.id).then(
             //Pelicula encontrada:
