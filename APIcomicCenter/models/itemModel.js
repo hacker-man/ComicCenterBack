@@ -13,7 +13,8 @@ var itemSchema = mongoose.Schema({
     anio_edit: Date,
     tipo: String,
     precio: Number,
-    uploadBy: String
+    uploadBy: String,
+    overview: String
 });
 itemSchema.statics.list = function (filtro,sort,cb) {
     var query = Item.find(filtro);

@@ -97,7 +97,8 @@ function cargaItems() {
                     anio_edit: item.anio_edit,
                     tipo: item.tipo,
                     precio: item.precio,
-                    uploadBy: item.uploadBy
+                    uploadBy: item.uploadBy,
+                    overview: item.overview
                 });
                 item.save(function (err, itemCreado) {
                     if (err) {
@@ -128,4 +129,5 @@ eliminaUsuarios()
     })
     .catch(function (err) {
         console.log("Error", err);
+        process.exit();
     });
