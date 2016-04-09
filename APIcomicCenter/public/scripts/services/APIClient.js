@@ -75,12 +75,32 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
             return deferred.promise;
         };
 
-        /*this.getMovie = function(movieID) {
-            var url = URL.resolve(apiPaths.movieDetail, { id: movieID });
-            return this.apiRequest(url);
-
-        };*/
-
+        this.addToCart = function(item){
+           var deferred = $q.defer();
+           var ruta = apiPaths.items +"/"+ item._id;
+           $http.put(ruta,item).then(
+             function(response){
+               deferred.resolve(response.data);
+             },
+             function(response){
+               deferred.reject(response.data);
+             }
+           );
+           return deferred.promise;
+        };
+        this.updateCart = function(user){
+          var deferred = $q.defer();
+          var ruta = apiPaths.users + "/" + user._id;
+          $http.put(ruta,user).then(
+            function(response){
+              deferred.resolve(response.data);
+            },
+            function(response){
+              deferred.reject(response.data);
+            }
+          );
+          return deferred.promise;
+        }
         /*  this.createMovie = function (movie) {
               var deferred = $q.defer();
               movie.owner = LogUser.getLogin();

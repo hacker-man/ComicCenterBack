@@ -98,7 +98,8 @@ function cargaItems() {
                     tipo: item.tipo,
                     precio: item.precio,
                     uploadBy: item.uploadBy,
-                    overview: item.overview
+                    overview: item.overview,
+                    en_carrito: item.en_carrito
                 });
                 item.save(function (err, itemCreado) {
                     if (err) {

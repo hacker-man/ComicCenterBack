@@ -14,6 +14,8 @@ angular.module('comicApp')
                     var url = "/#";
                     $window.location.href = url;
                     $scope.model = {};
+                    //Estos datos los uso en AppController
+                    $scope.$emit("LogInUser",response);
                     console.log('Login Hecho,Estoy dentro',response);
                 },
                 function(error) {

@@ -14,7 +14,8 @@ var itemSchema = mongoose.Schema({
     tipo: String,
     precio: Number,
     uploadBy: String,
-    overview: String
+    overview: String,
+    en_carrito: String
 });
 itemSchema.statics.list = function (filtro,sort,cb) {
     var query = Item.find(filtro);

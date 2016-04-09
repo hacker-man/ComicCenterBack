@@ -2,6 +2,7 @@ angular.module("URL", []).service("URL", ["$log",function ($log) {
 
     this.resolve = function(url,params){
         var finalURL = [];
+        console.log("soy URLService id:",params);
         var urlParts = url.split("/");
         for(var i in urlParts){
             var urlPart = urlParts[i];

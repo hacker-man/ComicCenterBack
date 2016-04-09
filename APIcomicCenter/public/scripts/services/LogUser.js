@@ -17,15 +17,15 @@ angular.module("comicApp").service("LogUser", ["$window", function ($window) {
         return window.localStorage.getItem("cartNumItems");
     };
 
-    this.addToCart = function(){
+    this.sumOneToCart = function(){
       var items = this.getCart();
-      items++;
+      items = parseInt(items) + 1;
       this.setCartNumItems(items);
    }
 
-   this.addFromCart = function(){
+   this.deleteFromCart = function(){
      var items = this.getCart();
-     items--;
+     items = parseInt(items) - 1;
      this.setCartNumItems(items);
    }
 

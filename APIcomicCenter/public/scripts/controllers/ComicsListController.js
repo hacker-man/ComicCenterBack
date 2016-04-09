@@ -1,8 +1,14 @@
 angular.module("comicApp")
-    .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", function($scope, $log, $window, $location, $filter, APIClient, paths) {
+    .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient","URL","paths", function($scope, $log, $window, $location, $filter, APIClient,URL,paths) {
         //scope init:
         $scope.model = [];
-        $scope.currentPath = $location.url();;
+        $scope.currentPath = $location.url();
+        //controller methods:
+        $scope.goDetail = function(book){
+          console.log("Entro en goDetail,id:",book._id);
+          var detail = URL.resolve(paths.itemDetail,{id:book._id});
+          $location.url(detail);
+      }
         //Controller start:
         $scope.uiState = 'loading';
         APIClient.getItems($scope.currentPath).then(

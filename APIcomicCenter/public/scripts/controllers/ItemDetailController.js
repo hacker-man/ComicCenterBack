@@ -1,5 +1,5 @@
 angular.module("comicApp").controller("ItemDetailController",
-    ["$scope","$routeParams","$location","APIClient","paths",function($scope,$routeParams,$location,APIClient,paths){
+    ["$scope","$routeParams","$location","APIClient","paths","LogUser",function($scope,$routeParams,$location,APIClient,paths,LogUser){
         //scope init:"
         $scope.model = {};
         $scope.uiState = 'loading';
@@ -12,6 +12,22 @@ angular.module("comicApp").controller("ItemDetailController",
                 return overview;
             }
         }
+        $scope.add = function(){
+          $scope.model.en_carrito = LogUser.getLogin();
+          var elementos = LogUser.getCart();
+          elementos = parseInt(elementos) + 1;
+          LogUser.setCartNumItems(elementos);
+          APIClient.addToCart($scope.model).then(
+            //Todo ok:
+            function(item){
+              console.log("Añadido al carrito",item);
+              $location.url(paths.home);
+            },
+            function(error){
+                console.log("No se ha podido añadir al carrito",error);
+            }
+          );
+        };
         //Controller init
         APIClient.getItem($routeParams.id).then(
             //Pelicula encontrada:

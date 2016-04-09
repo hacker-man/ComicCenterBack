@@ -8,65 +8,91 @@
     </script>
     <div class="row">
         <div class="row row-margin-bottom">
-        <div class="col-md-12 no-padding lib-item" data-category="ui">
-        <div class="lib-panel">
-          <div class="row box-shadow">
-            <div class="col-xs-12 col-sm-3 ">
-                <img ng-src="{{::model.url_portada}}" class="img-responsive">
-            </div>
-            <div class="col-xs-12 col-sm-9">
-              <div class="lib-row lib-header">
-                <strong>{{::model.titulo}}</strong>
-                <div class="pull-right" style="color:grey">
-                  upload by:&nbsp;{{::model.uploadBy}}
-                </div>
-
-                <div class="lib-header-seperator"></div>
-              </div>
-            </div>
-            <div class="col-xs-12 col-sm-9">&nbsp;</div>
-            <div class="col-xs-12 col-sm-9">
-                <ul>
-                    <li>
-                        <strong>Reference:</strong>&nbsp;{{::model.ISBN}}
-                    </li>
-                    <li>
-                        <strong>Editorial:</strong>&nbsp;{{::model.editorial}}</li>
-                    <li>
-                        <strong>Autor:</strong>&nbsp;{{::model.autor}}</li>
-                    <li>
-                        <strong>Genero:</strong>&nbsp;{{model.genero | join}}</li>
-                    <li>
-                        <strong>Paginas:</strong>&nbsp;{{::model.num_paginas}}</li>
-                    <li>
-                        <strong>Fecha Edicion:</strong>&nbsp;{{::model.anio_edit | date:"dd/MM/yyyy"}}</li>
-                    <li>
-                        <strong>Precio:</strong>&nbsp;{{::model.precio}}&nbsp; &euro;</i>
-                </li>
-            </ul>
-            <div class="container">
-                <div class="panel-group col-xs-12 col-md-4" id="accordion1">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#genesis">Overview</a>
+            <div class="col-md-12 no-padding lib-item" data-category="ui">
+                <div class="lib-panel">
+                    <div class="row box-shadow">
+                        <div class="col-xs-12 col-sm-3 ">
+                            <img ng-src="{{::model.url_portada}}" class="img-responsive">
                         </div>
-                        <div id="genesis" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <div class="col-xs-12">
-                                    <div class="text-justify">
-                                        <small>{{::getOwerview(model.overview)}}</small>
+                        <div class="col-xs-12 col-sm-9">
+                            <div class="lib-row lib-header">
+                                <strong>{{::model.titulo}}</strong>
+                                <div class="pull-right" style="color:grey">
+                                    upload by:&nbsp;{{::model.uploadBy}}
+                                </div>
+
+                                <div class="lib-header-seperator"></div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-9">&nbsp;</div>
+                        <div class="col-xs-12 col-sm-9">
+                            <ul>
+                                <li>
+                                    <strong>Reference:</strong>&nbsp;{{::model.ISBN}}
+                                </li>
+                                <li>
+                                    <strong>Editorial:</strong>&nbsp;{{::model.editorial}}</li>
+                                <li>
+                                    <strong>Autor:</strong>&nbsp;{{::model.autor}}</li>
+                                <li>
+                                    <strong>Genero:</strong>&nbsp;{{model.genero | join}}</li>
+                                <li>
+                                    <strong>Paginas:</strong>&nbsp;{{::model.num_paginas}}</li>
+                                <li>
+                                    <strong>Fecha Edicion:</strong>&nbsp;{{::model.anio_edit | date:"dd/MM/yyyy"}}</li>
+                                <li>
+                                    <strong>Precio:</strong>&nbsp;{{::model.precio}}&nbsp; &euro;</i>
+                            </li>
+                        </ul>
+                        <div class="container">
+                            <div class="panel-group col-xs-12 col-sm-9" id="accordion1" style="padding:0%">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion1" href="#genesis">Overview</a>
+                                    </div>
+                                    <div id="genesis" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <div class="col-xs-12">
+                                                <div class="text-justify">
+                                                    <small>{{::getOwerview(model.overview)}}</small>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="hidden-xs col-sm-2 col-sm-offset-5">
+                                <button ng-click="add()" ng-if="model.en_carrito == ''" type="button" class="btn btn-labeled btn-primary">
+                                    <span class="btn-label">
+                                        <i class="glyphicon glyphicon-shopping-cart"></i>
+                                    </span>add to cart
+                                </button>
+                            </div>
+                            <div class="visible-xs">
+                                <button ng-click="add()" ng-if="model.en_carrito == ''" type="button" class="btn btn-sm btn-block btn-primary">
+                                    <i class="glyphicon glyphicon-shopping-cart"></i>
+                                </button>
+                            </div>
+                            <div class="jumbotron col-xs-12 col-sm-6 col-sm-offset-3" ng-if="model.en_carrito != ''">
+                                <div class="col-xs-10 col-xs-offset-1">
+                                    <h2>Sorry :(</h2>
+                                </div>
+                                <div class="col-xs-10 col-xs-offset-1">
+                                    <p>
+                                        this article is already reserved
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
-
         </div>
-      </div>
-      </div>
-      </div>
     </div>
 </div>
 </div>

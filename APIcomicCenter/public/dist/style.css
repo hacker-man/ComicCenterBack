@@ -495,3 +495,38 @@ ul.nav.navbar-nav.navbar-right:last-child {
 .no-padding {
   padding: 0;
 }
+.btn-label {
+  position: relative;
+  left: -12px;
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px 0 0 3px;
+}
+.btn-labeled {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.btn {
+  margin-bottom: 10px;
+}
+.productbox {
+  background-color: #ffffff;
+  padding: 10px;
+  margin-bottom: 10px;
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+}
+.producttitle {
+  font-weight: bold;
+  padding: 5px 0 5px 0;
+}
+.productprice {
+  border-top: 1px solid #dadada;
+  padding-top: 5px;
+}
+.pricetext {
+  font-weight: bold;
+  font-size: 1.4em;
+}

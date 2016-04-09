@@ -36159,7 +36159,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     }]);
 
 ;angular.module("comicApp")
-    .controller("AppController", ["$scope", "$location", "paths", "LogUser", function($scope, $location, paths, LogUser) {
+    .controller("AppController", ["$scope", "$location", "paths", "LogUser","APIClient",function($scope, $location, paths, LogUser,APIClient) {
 
         var controller = this;
         controller.titles = {}
@@ -36174,27 +36174,49 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             title: "",
             user: ""
         }
+        $scope.datos_user = {};
         //controller methods:
         $scope.isAuth = function() {
             return LogUser.isLogin();
         };
 
         $scope.logout = function() {
-            LogUser.setLogin("");
-            LogUser.setCartNumItems("-");
-            $location.url(paths.home);
+            var num_elementos = parseInt(LogUser.getCart());
+            $scope.datos_user.carrito = num_elementos;
+            APIClient.updateCart($scope.datos_user).then(
+                function(res){
+                  console.log("logout OK",res);
+                  console.log("add:Ahora hay",LogUser.getCart());
+                  console.log($scope.datos_user);
+                  LogUser.setLogin("");
+                  LogUser.setCartNumItems("-");
+                  $location.url(paths.home);
+                },
+                function(err){
+                  console.log("error al hacer logout",err);
+                }
+            );
         };
         //scope event listeners:
         $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
             $scope.model.title = controller.titles[$location.url()] || "404 not Found";
         });
+        $scope.$on("LogInUser",function(evt,datos_user){
+            $scope.datos_user = datos_user;
+        });
     }]);
 
 ;angular.module("comicApp")
-    .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient", "paths", function($scope, $log, $window, $location, $filter, APIClient, paths) {
+    .controller("ComicsListController", ["$scope", "$log", "$window", "$location", "$filter", "APIClient","URL","paths", function($scope, $log, $window, $location, $filter, APIClient,URL,paths) {
         //scope init:
         $scope.model = [];
-        $scope.currentPath = $location.url();;
+        $scope.currentPath = $location.url();
+        //controller methods:
+        $scope.goDetail = function(book){
+          console.log("Entro en goDetail,id:",book._id);
+          var detail = URL.resolve(paths.itemDetail,{id:book._id});
+          $location.url(detail);
+      }
         //Controller start:
         $scope.uiState = 'loading';
         APIClient.getItems($scope.currentPath).then(
@@ -36221,7 +36243,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
   );
 
 ;angular.module("comicApp").controller("ItemDetailController",
-    ["$scope","$routeParams","$location","APIClient","paths",function($scope,$routeParams,$location,APIClient,paths){
+    ["$scope","$routeParams","$location","APIClient","paths","LogUser",function($scope,$routeParams,$location,APIClient,paths,LogUser){
         //scope init:"
         $scope.model = {};
         $scope.uiState = 'loading';
@@ -36234,6 +36256,22 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                 return overview;
             }
         }
+        $scope.add = function(){
+          $scope.model.en_carrito = LogUser.getLogin();
+          var elementos = LogUser.getCart();
+          elementos = parseInt(elementos) + 1;
+          LogUser.setCartNumItems(elementos);
+          APIClient.addToCart($scope.model).then(
+            //Todo ok:
+            function(item){
+              console.log("Añadido al carrito",item);
+              $location.url(paths.home);
+            },
+            function(error){
+                console.log("No se ha podido añadir al carrito",error);
+            }
+          );
+        };
         //Controller init
         APIClient.getItem($routeParams.id).then(
             //Pelicula encontrada:
@@ -36268,6 +36306,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                     var url = "/#";
                     $window.location.href = url;
                     $scope.model = {};
+                    //Estos datos los uso en AppController
+                    $scope.$emit("LogInUser",response);
                     console.log('Login Hecho,Estoy dentro',response);
                 },
                 function(error) {
@@ -36331,9 +36371,10 @@ function($scope, APIClient) {
 ;angular.module("comicApp").directive("bookItemList",function(){
   return {
       restrict:"AE",
-      templateUrl:"views/bookItemList.html",
+      templateUrl:"views/BookItemList.html",
       scope:{
           model:"=items",
+          go:"="
       }
   };
 });
@@ -36441,12 +36482,32 @@ function($scope, APIClient) {
             return deferred.promise;
         };
 
-        /*this.getMovie = function(movieID) {
-            var url = URL.resolve(apiPaths.movieDetail, { id: movieID });
-            return this.apiRequest(url);
-
-        };*/
-
+        this.addToCart = function(item){
+           var deferred = $q.defer();
+           var ruta = apiPaths.items +"/"+ item._id;
+           $http.put(ruta,item).then(
+             function(response){
+               deferred.resolve(response.data);
+             },
+             function(response){
+               deferred.reject(response.data);
+             }
+           );
+           return deferred.promise;
+        };
+        this.updateCart = function(user){
+          var deferred = $q.defer();
+          var ruta = apiPaths.users + "/" + user._id;
+          $http.put(ruta,user).then(
+            function(response){
+              deferred.resolve(response.data);
+            },
+            function(response){
+              deferred.reject(response.data);
+            }
+          );
+          return deferred.promise;
+        }
         /*  this.createMovie = function (movie) {
               var deferred = $q.defer();
               movie.owner = LogUser.getLogin();
@@ -36504,15 +36565,15 @@ function($scope, APIClient) {
         return window.localStorage.getItem("cartNumItems");
     };
 
-    this.addToCart = function(){
+    this.sumOneToCart = function(){
       var items = this.getCart();
-      items++;
+      items = parseInt(items) + 1;
       this.setCartNumItems(items);
    }
 
-   this.addFromCart = function(){
+   this.deleteFromCart = function(){
      var items = this.getCart();
-     items--;
+     items = parseInt(items) - 1;
      this.setCartNumItems(items);
    }
 
@@ -36534,6 +36595,7 @@ function($scope, APIClient) {
 
     this.resolve = function(url,params){
         var finalURL = [];
+        console.log("soy URLService id:",params);
         var urlParts = url.split("/");
         for(var i in urlParts){
             var urlPart = urlParts[i];
@@ -36554,6 +36616,7 @@ function($scope, APIClient) {
 }
 
 ]);
+
 ;angular.module("comicApp").value("apiPaths", {
     version:"/api/v1",
     items: "/api/v1/items",
