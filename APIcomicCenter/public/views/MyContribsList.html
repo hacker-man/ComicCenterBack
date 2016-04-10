@@ -1,0 +1,11 @@
+<div ng-controller="MyContribsController">
+  <div class="jumbotron" ng-show="uiState=='blank'">
+    <p class="lead">No data here</p>
+</div>
+<div class="aler alert-danger" ng-show="uiState == 'error'">
+    Error while loading data
+</div>
+  <div class="progress" ng-include='"views/ProgressBar.html"' ng-show="uiState == 'loading'">
+  </div>
+    <media-item-list items="model" ng-show="uiState == 'ideal" delete="eliminar" type ="type"></media-item-list>
+</div>

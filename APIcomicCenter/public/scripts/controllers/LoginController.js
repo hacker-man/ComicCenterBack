@@ -1,5 +1,5 @@
 angular.module('comicApp')
-    .controller('LoginController', ["$scope","$window","APIClient","LogUser", function($scope,$window,APIClient,LogUser) {
+    .controller('LoginController', ["$scope","$rootScope","$window","APIClient","LogUser", function($scope,$rootScope,$window,APIClient,LogUser) {
         //scope init:
         $scope.model = {}
         //scope methods:

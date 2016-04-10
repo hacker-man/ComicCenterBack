@@ -25,6 +25,16 @@ angular.module("comicApp", ["ngRoute", "URL"])
             templateUrl: "views/ComicItemList.html"
         }).when(paths.sellItem, {
             templateUrl: "views/SellItem.html"
+        }).when(paths.myAccount,{
+          templateUrl: "views/myAccount.html"
+        }).when(paths.itemsCartPath,{
+          templateUrl: "views/CartList.html"
+        }).when(paths.myContribsPath,{
+            templateUrl: "views/MyContribsList.html"
+        }).when(paths.auxiliar,{
+            redirectTo: paths.itemsCartPath
+        }).when(paths.auxiliar2,{
+            redirectTo: paths.myContribsPath
         }).otherwise({
             templateUrl: 'views/404.html'
         })

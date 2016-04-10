@@ -3,6 +3,7 @@ angular.module("comicApp").controller("ItemDetailController",
         //scope init:"
         $scope.model = {};
         $scope.uiState = 'loading';
+        $scope.current = LogUser.getLogin();
         //controller methods:
         $scope.getOwerview = function(overview) {
             if (overview == ""){
@@ -14,13 +15,11 @@ angular.module("comicApp").controller("ItemDetailController",
         }
         $scope.add = function(){
           $scope.model.en_carrito = LogUser.getLogin();
-          var elementos = LogUser.getCart();
-          elementos = parseInt(elementos) + 1;
-          LogUser.setCartNumItems(elementos);
           APIClient.addToCart($scope.model).then(
             //Todo ok:
             function(item){
               console.log("Añadido al carrito",item);
+              LogUser.addToCart();
               $location.url(paths.home);
             },
             function(error){

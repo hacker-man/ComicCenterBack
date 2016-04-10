@@ -1,0 +1,10 @@
+<div ng-controller="CartListController">
+    <div class="jumbotron" ng-show="uiState=='blank'">
+        <p class="lead">No data here</p>
+    </div>
+    <div class="aler alert-danger" ng-show="uiState == 'error'">
+        Error while loading data
+    </div>
+    <div class="progress" ng-include='"views/ProgressBar.html"' ng-show="uiState == 'loading'"></div>
+    <media-item-list items="model" delete="purchase" type="type" ng-show="uiState == 'ideal'"></media-item-list>
+</div>

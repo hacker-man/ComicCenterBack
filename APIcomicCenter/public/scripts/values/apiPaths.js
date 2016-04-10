@@ -11,5 +11,8 @@ angular.module("comicApp").value("apiPaths", {
     itemSeinenMangas: "/api/v1/items?tipo=manga&genero=seinen",
     itemMechaMangas: "/api/v1/items?tipo=manga&genero=mecha",
     users:"/api/v1/users",
-    loginApiPath: "/api/v1/login"
+    loginApiPath: "/api/v1/login",
+    inMyCart:"/api/v1//itemsCart",
+    myContribs:"/api/v1/itemsContrib",
+    dataUser:"/api/v1/datauser"
 });

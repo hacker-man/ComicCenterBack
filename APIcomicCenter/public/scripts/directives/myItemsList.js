@@ -1,11 +1,11 @@
 angular.module("comicApp").directive("mediaItemList",function(){
   return {
       restrict:"AE",
-      templateUrl:"views/movieItemList.html",
+      templateUrl:"views/MyItemList.html",
       scope:{
           model:"=items",
-          type:"=",
-          rent:"="
+          delete: "=",
+          type: "=",
       }
   };
 });

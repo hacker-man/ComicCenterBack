@@ -100,40 +100,60 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
             }
           );
           return deferred.promise;
-        }
-        /*  this.createMovie = function (movie) {
-              var deferred = $q.defer();
-              movie.owner = LogUser.getLogin();
-              movie.user_rent = "";
-              movie.created_date = $filter('date')(new Date(), 'yyyy-MM-dd');
-              movie.rent_date = "";
-              //movie.owner = LogUser.getLogin();
-              $http.post(apiPaths.movies, movie).then(
+        };
 
-                  function (response) {
-                      deferred.resolve(response.data);
-                  },
-                  function (response) {
-                      deferred.reject(response.data);
-                  }
-              );
-              return deferred.promise;
-          };
+        this.deleteItem = function(item){
+          var deferred = $q.defer();
+          var ruta = apiPaths.items + "/" + item._id;
+          $http.delete(ruta).then(
+            function(response){
+              deferred.resolve(response.data);
+            },
+            function(response){
+              deferred.reject(response.data);
+            }
+          );
+          return deferred.promise;
+        };
 
-          this.modifyMovie = function (movie) {
-              var deferred = $q.defer();
-              var ruta = apiPaths.movies + movie.id;
-              console.log(ruta,movie);
-              $http.put(ruta,movie).then(
-                  function (respose) {
-                      deferred.resolve(respose.data);
-                  },
-                  function (response) {
-                      deferred.reject(response.data);
-                  }
-              );
-              return deferred.promise;
-          };*/
+        this.getItemsInMyCart = function(owner){
+          var deferred = $q.defer();
+          $http.post(apiPaths.inMyCart,owner).then(
+            function(response){
+              deferred.resolve(response.data.myItems);
+            },
+            function(response){
+              deferred.resolve(response.data.err);
+            }
+          );
+          return deferred.promise;
+        };
+
+        this.MyContribItems = function(owner){
+          var deferred = $q.defer();
+          $http.post(apiPaths.myContribs,owner).then(
+            function(response){
+              deferred.resolve(response.data.myItems);
+            },
+            function(response){
+              deferred.resolve(response.data.err);
+            }
+          );
+          return deferred.promise;
+        };
+        this.getDataUser = function(user){
+          var deferred = $q.defer();
+          $http.post(apiPaths.dataUser,user).then(
+            function(response){
+              deferred.resolve(response.data.user[0])
+            },
+            function(response){
+              deferred.reject(response);
+            }
+          );
+          return deferred.promise;
+        };
+
     }
 
 

@@ -17,21 +17,20 @@ angular.module("comicApp").service("LogUser", ["$window", function ($window) {
         return window.localStorage.getItem("cartNumItems");
     };
 
-    this.sumOneToCart = function(){
-      var items = this.getCart();
+    this.addToCart = function(){
+      var items = window.localStorage.getItem("cartNumItems");
       items = parseInt(items) + 1;
-      this.setCartNumItems(items);
+      window.localStorage.setItem("cartNumItems",items);
    }
 
    this.deleteFromCart = function(){
-     var items = this.getCart();
+     var items = window.localStorage.getItem("cartNumItems");
+     console.log(items);
      items = parseInt(items) - 1;
-     this.setCartNumItems(items);
+     console.log(items);
+     window.localStorage.setItem("cartNumItems",items);
    }
 
-   this.deleteAllFromCart = function(){
-     this.setCartNumItems("0");
-   }
 
     this.isLogin = function() {
         var user = window.localStorage.getItem("nick") || "";

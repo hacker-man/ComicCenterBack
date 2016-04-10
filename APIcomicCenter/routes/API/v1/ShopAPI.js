@@ -134,6 +134,56 @@ router.post('/items', function(req, res) {
     });
 
 });
+router.post("/itemsCart",function(req,res){
+    var ItemsMiCarrito = Item.find({
+      en_carrito: req.body.en_carrito
+    });
+    ItemsMiCarrito.exec(function(err,rows){
+      if(err){
+        res.status(400).json({
+            result: false,
+            status: 'Bad Request',
+            err: err
+        });
+        return;
+      }
+      res.status(200).json({
+        myItems:rows
+      });
+    });
+});
+router.post("/itemsContrib",function(req,res){
+    var ItemsMiCarrito = Item.find({
+      uploadBy: req.body.uploadBy
+    });
+    ItemsMiCarrito.exec(function(err,rows){
+      if(err){
+        res.status(400).json({
+            result: false,
+            status: 'Bad Request',
+            err: err
+        });
+        return;
+      }
+      res.status(200).json({
+        myItems:rows
+      });
+    });
+});
+router.post('/datauser',function(req,res){
+  var data_user = Usuario.find({
+      nickname: req.body.nickname
+  });
+  data_user.exec(function(err,row){
+    if(err){
+      return;
+    }
+    res.status(200).json({
+        result:true,
+        user:row
+    });
+  });
+});
 router.post('/login', function(req, res) {
     //var user = new Usuario(req.body);
     var login_usuario = Usuario.find({
@@ -154,7 +204,7 @@ router.post('/login', function(req, res) {
                 result:true,
                 info: "LoginOK",
                 user:row
-            })
+            });
         }
 
     });
@@ -202,6 +252,16 @@ router.put('/items/:id', function(req, res) {
             result: true,
             row: data
         });
+    });
+});
+
+router.delete("/items/:id",function(req,res){
+  Item.remove({ _id: req.params.id }, function(err) {
+        if (!err) {
+            return res.send('Item deleted!');
+        } else {
+            return res.send('Error deleting item!');
+        }
     });
 });
 module.exports = router;
