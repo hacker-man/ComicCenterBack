@@ -27,6 +27,9 @@
                 <div class="col-xs-12">
                     <div class="form-group">
                         <input type="text" class="form-control input-lg" ng-model="model.ISBN" name="ISBN" placeholder="ISBN" required>
+                        <div class="text-warning" ng-show="itemForm.ISBN.$dirty && itemForm.ISBN.$error.required">
+                            The ISBN is required
+                        </div>
                     </div>
                 </div>
             </div>
@@ -34,11 +37,17 @@
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
                         <input type="text" class="form-control input-lg" ng-model="model.titulo" name="titulo" placeholder="titulo" required>
+                        <div class="text-warning" ng-show="itemForm.titulo.$dirty && itemForm.titulo.$error.required">
+                            The title is required
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" ng-model="model.autor" name="autor" placeholder="autor" required>
+                        <input type="text" class="form-control input-lg" ng-model="model.autor" name="autor" placeholder="author" required>
+                        <div class="text-warning" ng-show="itemForm.autor.$dirty && itemForm.autor.$error.required">
+                            The author is required
+                        </div>
                     </div>
                 </div>
             </div>
@@ -46,18 +55,33 @@
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
                         <input type="text" class="form-control input-lg" ng-model="model.editorial" name="editorial" placeholder="editorial" required>
+                        <div class="text-warning" ng-show="itemForm.editorial.$dirty && itemForm.editorial.$error.required">
+                            The editorial is required
+                        </div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-6">
                     <div class="form-group">
-                        <input type="number" class="form-control input-lg" ng-model="model.num_paginas" name="num_paginas" placeholder="numero de paginas" required>
+                        <input type="number" class="form-control input-lg" ng-model="model.num_paginas" name="num_paginas" placeholder="nº pags" min="0" required>
+                        <div class="text-warning" ng-show="itemForm.num_paginas.$dirty && itemForm.num_paginas.$error.required">
+                            nº pags is required
+                        </div>
+                        <div class="text-danger" ng-show="itemForm.num_paginas.$dirty && (itemForm.num_paginas.$error.number || itemForm.num_paginas.$error.min)">
+                            The nº pags must be a number between 0 and 10
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <div class="form-group">
-                        <input type="text" class="form-control input-lg" ng-model="model.url_portada" name="url_portada" placeholder="url cover image" required>
+                        <input type="url" class="form-control input-lg" ng-model="model.url_portada" name="url_portada" placeholder="url cover image" required>
+                    </div>
+                    <div class="text-warning" ng-show="itemForm.url_portada.$dirty && itemForm.url_portada.$error.required">
+                        url cover image is required
+                    </div>
+                    <div class="text-danger" ng-show="itemForm.url_portada.$dirty && itemForm.url_portada.$error.url">
+                        use a correct url
                     </div>
                 </div>
             </div>
@@ -87,7 +111,7 @@
                         </div>
                     </div>
                 </div>
-              </div>
+            </div>
 
             <div class="form-group">
                 <textarea class="form-control" type="textarea" ng-model="model.overview" placeholder="Overview if you want" maxlength="600" rows="7"></textarea>
@@ -98,7 +122,7 @@
             <hr class="colorgraph">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <button type="submit" class="btn btn-primary btn-block btn-lg">Submit</button>
+                    <button type="submit" ng-disabled="itemForm.$invalid" class="btn btn-primary btn-block btn-lg">Submit</button>
                 </div>
             </div>
         </form>

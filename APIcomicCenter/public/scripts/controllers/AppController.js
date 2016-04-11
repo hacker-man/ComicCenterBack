@@ -56,6 +56,9 @@ angular.module("comicApp")
             if(!LogUser.isLogin() && ($location.url()==paths.itemsCartPath || $location.url()==paths.myContribsPath || $location.url()==paths.myAccount || $location.url()==paths.settingsEditPath || $location.url()==paths.sellItem )){
               $location.url(paths.registeruser);
             }
+            if(LogUser.isLogin() && $location.url()==paths.registeruser){
+                $location.url(paths.myAccount);
+            }
         });
         $scope.$on("changeTitle", function(evt, title) {
             $scope.model.title = title;

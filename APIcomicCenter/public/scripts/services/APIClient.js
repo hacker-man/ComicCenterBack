@@ -114,7 +114,19 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
           );
           return deferred.promise;
         };
-
+        this.updateUser = function(user){
+          var deferred = $q.defer();
+          var ruta = apiPaths.users + "/" + user._id;
+          $http.put(ruta,user).then(
+            function(response){
+              deferred.resolve(response.data);
+            },
+            function(response){
+              deferred.reject(response.data);
+            }
+          );
+          return deferred.promise;
+        };
         this.deleteItem = function(item){
           var deferred = $q.defer();
           var ruta = apiPaths.items + "/" + item._id;

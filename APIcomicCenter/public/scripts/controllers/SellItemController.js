@@ -33,7 +33,7 @@ angular.module("comicApp")
                         num_paginas: "",
                         url_portada: "",
                         tipo: "",
-                        genero: [],
+                        genero: ['shonen'],
                         overview: ""
                     }
                     $scope.itemForm.$setPristine();

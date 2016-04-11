@@ -36228,6 +36228,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             if(!LogUser.isLogin() && ($location.url()==paths.itemsCartPath || $location.url()==paths.myContribsPath || $location.url()==paths.myAccount || $location.url()==paths.settingsEditPath || $location.url()==paths.sellItem )){
               $location.url(paths.registeruser);
             }
+            if(LogUser.isLogin() && $location.url()==paths.registeruser){
+                $location.url(paths.myAccount);
+            }
         });
         $scope.$on("changeTitle", function(evt, title) {
             $scope.model.title = title;
@@ -36530,7 +36533,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                         num_paginas: "",
                         url_portada: "",
                         tipo: "",
-                        genero: [],
+                        genero: ['shonen'],
                         overview: ""
                     }
                     $scope.itemForm.$setPristine();
@@ -36545,12 +36548,32 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     }]);
 
 ;angular.module("comicApp")
-.controller("SettingsEditController",["$scope","LogUser",function($scope,LogUser){
-  //scope init:
-  $scope.email = LogUser.getEmail();
-  $scope.tlf = LogUser.getTlf();
-  $scope.nickname = LogUser.getLogin();
-}]);
+    .controller("SettingsEditController", ["$scope", "LogUser", "APIClient", "paths", function($scope, LogUser, APIClient, paths) {
+        var email = LogUser.getEmail()
+        var tlf = LogUser.getTlf();
+        var nickname = LogUser.getLogin();
+        var id = LogUser.getId();
+        //scope init:
+        $scope.model = {
+            email: email,
+            tlf: tlf,
+            nickname: nickname,
+            _id:id
+        }
+        $scope.paths = paths;
+        //scope methods:
+        $scope.editUser = function(){
+          APIClient.updateUser($scope.model).then(
+              function(response){
+                $scope.updateForm.$setPristine();
+                console.log("Usuario editado correctamente",response);
+              },
+              function(err){
+                console.log("Fallo al actualizar usuario",err);
+              }
+          );
+        };
+    }]);
 
 ;angular.module("comicApp")
 .controller("UserRegisterController", ["$scope", "APIClient",
@@ -36857,7 +36880,19 @@ function($scope, APIClient) {
           );
           return deferred.promise;
         };
-
+        this.updateUser = function(user){
+          var deferred = $q.defer();
+          var ruta = apiPaths.users + "/" + user._id;
+          $http.put(ruta,user).then(
+            function(response){
+              deferred.resolve(response.data);
+            },
+            function(response){
+              deferred.reject(response.data);
+            }
+          );
+          return deferred.promise;
+        };
         this.deleteItem = function(item){
           var deferred = $q.defer();
           var ruta = apiPaths.items + "/" + item._id;

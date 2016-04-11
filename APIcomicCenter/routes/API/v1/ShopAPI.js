@@ -210,7 +210,7 @@ router.post('/login', function(req, res) {
     });
 });
 router.put('/users/:id', function(req, res) {
-    req.body.password = hash.sha256().update(req.body.password).digest('hex');
+    //req.body.password = hash.sha256().update(req.body.password).digest('hex');
     Usuario.update({
         _id: req.params.id
     }, {
