@@ -1,7 +1,8 @@
 angular.module('comicApp')
-    .controller('LoginController', ["$scope","$rootScope","$window","APIClient","LogUser", function($scope,$rootScope,$window,APIClient,LogUser) {
+    .controller('LoginController', ["$scope","$rootScope","$window","APIClient","LogUser","paths",function($scope,$rootScope,$window,APIClient,LogUser,paths) {
         //scope init:
         $scope.model = {}
+        $scope.paths = paths;
         //scope methods:
         $scope.logUser = function() {
             APIClient.logIn($scope.model).then(

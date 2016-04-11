@@ -28,17 +28,19 @@ angular.module("comicApp").controller("ItemDetailController",
           );
         };
         //Controller init
+        $scope.uiState = 'loading';
+        $scope.$emit("changeTitle","Loading...");
         APIClient.getItem($routeParams.id).then(
             //Pelicula encontrada:
             function(item){
                 $scope.model = item;
                 $scope.uiState = 'ideal';
                 console.log(item);
-                //$scope.$emit("changeTitle",$scope.model.titulo);
+                $scope.$emit("changeTitle",$scope.model.titulo);
             },
             //Pelicula no encontrada:
             function(error){
-                //TODO: improve error management
+                $scope.uiState = 'error';
                 $location.url(paths.notFound);
             }
         );

@@ -6,22 +6,27 @@
         Error while loading data
     </div>
     <div class="progress" ng-include='"views/ProgressBar.html"' ng-show="uiState == 'loading'"></div>
-    <table ng-show="uiState == 'ideal" class="table table-striped">
+    <!--<table ng-show="uiState == 'ideal" class="table table-striped">
         <tbody>
             <tr ng-repeat="item in model">
-                <td>
-                    <div class="col-md-2 col-md-offset-5  column productbox">
-                        <img ng-src="{{::item.url_portada}}" class="img-responsive">
-                        <div class="producttitle">{{::item.titulo}}</div>
-                        <div class="productprice">
-                            <div class="pull-right">
-                                <button class="btn btn-primary btn-sm" ng-click="goDetail(item)">Detail</button>
-                            </div>
-                            <div class="pricetext">{{::item.precio}}&euro;</div>
-                        </div>
-                    </div>
-                </td>
+                <td>-->
+    <div ng-repeat="item in model">
+
+        <div class="col-sm-6 col-md-6 col-lg-2  column productbox">
+
+                <img ng-src="{{::item.url_portada}}" class="img-responsive  tam">
+
+            <div class="producttitle">{{::item.titulo | limitTo:17}}{{item.titulo.length > 20 ? '...' : ''}}</div>
+            <div class="productprice">
+                <div class="pull-right">
+                    <button class="btn btn-primary btn-sm" ng-click="goDetail(item)">Detail</button>
+                </div>
+                <div class="pricetext">{{::item.precio}}&euro;</div>
+            </div>
+        </div>
+    </div>
+    <!--</td>
             </tr>
         </tbody>
-    </table>
+    </table>-->
 </div>

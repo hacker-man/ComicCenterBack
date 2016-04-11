@@ -36169,15 +36169,25 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     }]);
 
 ;angular.module("comicApp")
-    .controller("AppController", ["$scope", "$location", "paths", "LogUser","APIClient",function($scope, $location, paths, LogUser,APIClient) {
+    .controller("AppController", ["$scope", "$location", "paths", "LogUser", "APIClient", function($scope, $location, paths, LogUser, APIClient) {
 
         var controller = this;
         controller.titles = {}
         controller.titles[paths.home] = "comic center";
         controller.titles[paths.aboutUs] = "about us";
         controller.titles[paths.itemsComicAll] = "comics";
+        controller.titles[paths.itemsComicAdventure] = "comic-adventure";
+        controller.titles[paths.itemsComicHero] = "comic-superheroes";
+        controller.titles[paths.itemsComicSciFi] = "comic-sciFi";
         controller.titles[paths.itemsMangaAll] = "mangas";
+        controller.titles[paths.itemsMangaShonen] = "manga-shonen";
+        controller.titles[paths.itemsMangaSeinen] = "manga-seinen";
+        controller.titles[paths.itemsMangaMecha] = "manga-mecha";
+
         controller.titles[paths.sellItem] = "share your comic";
+        controller.titles[paths.myAccount] = "Account settings";
+        controller.titles[paths.itemsCartPath] = "My Cart";
+        controller.titles[paths.myContribsPath] = "My Contribs"
 
         //scope init:
         $scope.model = {
@@ -36194,16 +36204,16 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             var num_elementos = parseInt(LogUser.getCart());
             $scope.datos_user.carrito = num_elementos;
             APIClient.updateCart($scope.datos_user).then(
-                function(res){
-                  console.log("logout OK",res);
-                  console.log("add:Ahora hay",LogUser.getCart());
-                  console.log($scope.datos_user);
-                  LogUser.setLogin("");
-                  LogUser.setCartNumItems("-");
-                  $location.url(paths.home);
+                function(res) {
+                    console.log("logout OK", res);
+                    console.log("add:Ahora hay", LogUser.getCart());
+                    console.log($scope.datos_user);
+                    LogUser.setLogin("");
+                    LogUser.setCartNumItems("-");
+                    $location.url(paths.home);
                 },
-                function(err){
-                  console.log("error al hacer logout",err);
+                function(err) {
+                    console.log("error al hacer logout", err);
                 }
             );
         };
@@ -36211,7 +36221,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
             $scope.model.title = controller.titles[$location.url()] || "404 not Found";
         });
-        $scope.$on("LogInUser",function(evt,datos_user){
+        $scope.$on("changeTitle", function(evt, title) {
+            $scope.model.title = title;
+        });
+        $scope.$on("LogInUser", function(evt, datos_user) {
             $scope.datos_user = datos_user;
         });
     }]);
@@ -36326,17 +36339,19 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
           );
         };
         //Controller init
+        $scope.uiState = 'loading';
+        $scope.$emit("changeTitle","Loading...");
         APIClient.getItem($routeParams.id).then(
             //Pelicula encontrada:
             function(item){
                 $scope.model = item;
                 $scope.uiState = 'ideal';
                 console.log(item);
-                //$scope.$emit("changeTitle",$scope.model.titulo);
+                $scope.$emit("changeTitle",$scope.model.titulo);
             },
             //Pelicula no encontrada:
             function(error){
-                //TODO: improve error management
+                $scope.uiState = 'error';
                 $location.url(paths.notFound);
             }
         );
@@ -36344,9 +36359,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 );
 
 ;angular.module('comicApp')
-    .controller('LoginController', ["$scope","$rootScope","$window","APIClient","LogUser", function($scope,$rootScope,$window,APIClient,LogUser) {
+    .controller('LoginController', ["$scope","$rootScope","$window","APIClient","LogUser","paths",function($scope,$rootScope,$window,APIClient,LogUser,paths) {
         //scope init:
         $scope.model = {}
+        $scope.paths = paths;
         //scope methods:
         $scope.logUser = function() {
             APIClient.logIn($scope.model).then(
@@ -36404,10 +36420,14 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     .controller("MyAccountController", ["$scope", "$rootScope", "$location", "APIClient", "LogUser", "paths", function($scope, $rootScope, $location, APIClient, LogUser, paths) {
         //scope init:
         $scope.user_data = {};
+        $scope.paths = paths;
         var user = LogUser.getLogin();
         var user_json = {
             nickname: user
         };
+        $scope.current_date = new Date();
+        $scope.myCart = LogUser.getCart();
+        //controller  methods:
         $scope.MiCarrito = function() {
             $location.url(paths.itemsCartPath);
         };
