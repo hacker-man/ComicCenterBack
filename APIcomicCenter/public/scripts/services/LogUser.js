@@ -7,14 +7,31 @@ angular.module("comicApp").service("LogUser", ["$window", function ($window) {
     this.setCartNumItems = function(cartNumItems){
       //Guarda el numero de elementos en el carrito del usuario en memoria del navegador
       window.localStorage.setItem("cartNumItems",cartNumItems);
-    }
+    };
+    this.setId = function(id_user){
+      window.localStorage.setItem("id",id_user);
+    };
+    this.setTlf = function(tlf_user){
+      window.localStorage.setItem("tlf",tlf_user);
+    };
+    this.setEmail = function(email_user){
+      window.localStorage.setItem("email",email_user);
+    };
+
     this.getLogin = function() {
-        // Recuperamos el usuario guardado en el navegador
-        // console.log (window.localStorage.getItem("user"));
         return window.localStorage.getItem("nick");
     };
     this.getCart = function() {
         return window.localStorage.getItem("cartNumItems");
+    };
+    this.getId = function() {
+        return window.localStorage.getItem("id");
+    };
+    this.getTlf = function() {
+        return window.localStorage.getItem("tlf");
+    };
+    this.getEmail = function() {
+        return window.localStorage.getItem("email");
     };
 
     this.addToCart = function(){

@@ -19,5 +19,6 @@ angular.module("comicApp").constant("paths", {
     myContribsPath:"/my-contribs",
     auxiliar:"/auxiliar",
     auxiliar2:"/auxiliar2",
+    settingsEditPath: "/edit-profile",
     notFound: "/not-found"
 });

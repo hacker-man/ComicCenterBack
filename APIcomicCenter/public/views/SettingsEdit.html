@@ -1,0 +1,52 @@
+<div class="container" ng-controller="SettingsEditController">
+    <div class="alert alert-success col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" ng-show="successMessage">
+        {{successMessage}}
+    </div>
+    <div class="alert alert-danger col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" ng-show="errorMessage">
+        {{errorMessage}}
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form name="registerForm" ng-submit="saveUser()" novalidate>
+                <h2>Settings
+                    <small>Edit your profile data.</small>
+                </h2>
+                <hr class="colorgraph">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="nickname" value="{{nickname}}" class="form-control input-lg"  disabled>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="form-group" >
+                            <input type="password" value="sdfdfsdfsd" maxlength="20" ng-minlength="8" ng-maxlength="20" name="password" class="form-control input-lg" placeholder="Password" tabindex="2" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" ng-model="model.email" value={{email}} class="form-control input-lg" placeholder="{{email}}" tabindex="3" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" maxlength="9" ng-minlength="9" ng-maxlength="9" name="tlf" value={{tlf}} ng-model="model.tlf" class="form-control input-lg" placeholder="{{tlf}}" tabindex="4" required>
+                    <div class="text-warning" ng-show="registerForm.tlf.$dirty && registerForm.tlf.$error.required">
+                        The phone number is required
+                    </div>
+                    <div class="text-warning" ng-show="((registerForm.tlf.$error.number || registerForm.tlf.$error.minlength  || registerForm.tlf.$error.maxlength) && registerForm.tlf.$dirty)">
+                        The phone number must be a number of 9 digits
+                    </div>
+                </div>
+                <hr class="colorgraph">
+                <div class="row">
+                    <div class="col-xs-12 col-md-6">
+                        <input type="submit" ng-disabled="registerForm.$invalid" value="Submit Changes" class="btn btn-primary btn-block btn-lg" tabindex="5">
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <a href="#" class="btn btn-danger btn-block btn-lg">exit</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -9,6 +9,9 @@ angular.module('comicApp')
                 function(response) {
                     LogUser.setLogin(response.nickname);
                     LogUser.setCartNumItems(response.carrito);
+                    LogUser.setId(response._id);
+                    LogUser.setTlf(response.tlf);
+                    LogUser.setEmail(response.email);
                     var carrito = LogUser.getCart();
                     var user = LogUser.getLogin();
                     console.log("Usuario logeado como",user,"items-carrito:",carrito);
