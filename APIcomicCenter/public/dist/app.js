@@ -36212,6 +36212,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                     console.log($scope.datos_user);
                     LogUser.setLogin("");
                     LogUser.setCartNumItems("-");
+                    LogUser.setId("");
+                    LogUser.setTlf("");
+                    LogUser.setEmail("");
                     $location.url(paths.home);
                 },
                 function(err) {
@@ -36222,6 +36225,9 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         //scope event listeners:
         $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
             $scope.model.title = controller.titles[$location.url()] || "404 not Found";
+            if(!LogUser.isLogin() && ($location.url()==paths.itemsCartPath || $location.url()==paths.myContribsPath || $location.url()==paths.myAccount || $location.url()==paths.settingsEditPath || $location.url()==paths.sellItem )){
+              $location.url(paths.registeruser);
+            }
         });
         $scope.$on("changeTitle", function(evt, title) {
             $scope.model.title = title;
@@ -36448,7 +36454,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
     }]);
 
 ;angular.module("comicApp")
-    .controller("MyContribsController", ["$scope","$log","LogUser","APIClient","paths", function($scope,$log,LogUser,APIClient,paths) {
+    .controller("MyContribsController", ["$scope","$log","$location","LogUser","APIClient","paths", function($scope,$log,$location,LogUser,APIClient,paths) {
         //scope init:
         $scope.model = [];
         $scope.type = "Contrib"

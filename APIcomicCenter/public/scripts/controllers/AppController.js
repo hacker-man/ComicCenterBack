@@ -40,6 +40,9 @@ angular.module("comicApp")
                     console.log($scope.datos_user);
                     LogUser.setLogin("");
                     LogUser.setCartNumItems("-");
+                    LogUser.setId("");
+                    LogUser.setTlf("");
+                    LogUser.setEmail("");
                     $location.url(paths.home);
                 },
                 function(err) {
@@ -50,6 +53,9 @@ angular.module("comicApp")
         //scope event listeners:
         $scope.$on("$locationChangeSuccess", function(evt, currentRoute) {
             $scope.model.title = controller.titles[$location.url()] || "404 not Found";
+            if(!LogUser.isLogin() && ($location.url()==paths.itemsCartPath || $location.url()==paths.myContribsPath || $location.url()==paths.myAccount || $location.url()==paths.settingsEditPath || $location.url()==paths.sellItem )){
+              $location.url(paths.registeruser);
+            }
         });
         $scope.$on("changeTitle", function(evt, title) {
             $scope.model.title = title;

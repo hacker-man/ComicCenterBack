@@ -1,5 +1,5 @@
 angular.module("comicApp")
-    .controller("MyContribsController", ["$scope","$log","LogUser","APIClient","paths", function($scope,$log,LogUser,APIClient,paths) {
+    .controller("MyContribsController", ["$scope","$log","$location","LogUser","APIClient","paths", function($scope,$log,$location,LogUser,APIClient,paths) {
         //scope init:
         $scope.model = [];
         $scope.type = "Contrib"
