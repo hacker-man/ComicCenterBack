@@ -3,7 +3,7 @@ angular.module("comicApp")
         function($scope, $location, paths, LogUser) {
            //scope init:
             $scope.model = {
-                selectedItem: paths.home,
+                selectedItem: paths.aboutUs,
                 user: ""
             }
             $scope.paths = paths;

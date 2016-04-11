@@ -33,6 +33,8 @@ angular.module("comicApp", ["ngRoute", "URL"])
             templateUrl: "views/MyContribsList.html"
         }).when(paths.settingsEditPath,{
             templateUrl: "views/SettingsEdit.html"
+        }).when(paths.aboutUs,{
+          templateUrl: "views/workInProgress.html"
         }).when(paths.auxiliar,{
             redirectTo: paths.itemsCartPath
         }).when(paths.auxiliar2,{

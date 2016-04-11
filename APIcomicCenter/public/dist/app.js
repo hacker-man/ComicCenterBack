@@ -36161,6 +36161,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             templateUrl: "views/MyContribsList.html"
         }).when(paths.settingsEditPath,{
             templateUrl: "views/SettingsEdit.html"
+        }).when(paths.aboutUs,{
+          templateUrl: "views/workInProgress.html"
         }).when(paths.auxiliar,{
             redirectTo: paths.itemsCartPath
         }).when(paths.auxiliar2,{
@@ -36405,7 +36407,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         function($scope, $location, paths, LogUser) {
            //scope init:
             $scope.model = {
-                selectedItem: paths.home,
+                selectedItem: paths.aboutUs,
                 user: ""
             }
             $scope.paths = paths;
