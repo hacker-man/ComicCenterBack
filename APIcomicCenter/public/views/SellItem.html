@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-controller="SellItemController">
     <script>
         $(document).ready(function() {
             $('#characterLeft').text('600 characters left');
@@ -19,7 +19,7 @@
         });
     </script>
     <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2">
-        <form role="form" novalidate>
+        <form name="itemForm" role="form" ng-submit="saveItem()" novalidate>
             <br style="clear:both">
             <h3 style="margin-bottom: 25px; text-align: center;">Share a Comic Bro!</h3>
             <hr class="colorgraph">
@@ -61,17 +61,17 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-init="model.tipo='comic'">
                 <legend>Type</legend>
                 <div class="funkyradio">
                     <div class="funkyradio-success">
-                        <input ng-class="model.tipo" id="comic" type="radio" name="tipo" value="tipo" checked>
+                        <input ng-model="model.tipo" id="comic" type="radio" name="tipo" value="comic" checked="checked">
                         <label for="comic">Comic</label>
                     </div>
                 </div>
                 <div class="funkyradio">
                     <div class="funkyradio-success">
-                        <input ng-class="model.tipo" id="manga" type="radio" name="tipo" value="tipo">
+                        <input ng-model="model.tipo" id="manga" type="radio" name="tipo" value="manga">
                         <label for="manga">Manga</label>
                     </div>
                 </div>
@@ -79,43 +79,15 @@
 
             <div class="form-group">
                 <legend>Genre</legend>
-                <div class="funkyradio">
-                    <div class="funkyradio-primary">
-                        <input checklist-model="model.genero" type="checkbox" id="shonen" value="shonen">
-                        <label for="shonen">Shonen</label>
+                <div ng-repeat="genero in generos">
+                    <div class="funkyradio">
+                        <div class="funkyradio-primary">
+                            <input checklist-model="model.genero" type="checkbox" id="{{genero}}" checklist-value="genero">
+                            <label for="{{genero}}">{{::genero}}</label>
+                        </div>
                     </div>
                 </div>
-                <div class="funkyradio">
-                    <div class="funkyradio-primary">
-                        <input checklist-model="model.genero" type="checkbox" id="seinen" value="seinen">
-                        <label for="seinen">Seinen</label>
-                    </div>
-                </div>
-                <div class="funkyradio">
-                    <div class="funkyradio-primary">
-                        <input checklist-model="model.genero" type="checkbox" id="mecha" value="mecha">
-                        <label for="mecha">Mecha</label>
-                    </div>
-                </div>
-                <div class="funkyradio">
-                    <div class="funkyradio-primary">
-                        <input checklist-model="model.genero" type="checkbox" id="superheroes" value="superheroes">
-                        <label for="superheroes">Superheroes</label>
-                    </div>
-                </div>
-                <div class="funkyradio">
-                    <div class="funkyradio-primary">
-                        <input checklist-model="model.genero" type="checkbox" id="adventures" value="adventure">
-                        <label for="adventures">Adventures</label>
-                    </div>
-                </div>
-                <div class="funkyradio">
-                    <div class="funkyradio-primary">
-                        <input checklist-model="model.genero" type="checkbox" id="sci-fi" value="sci-fi">
-                        <label for="sci-fi">Sci-Fi</label>
-                    </div>
-                </div>
-            </div>
+              </div>
 
             <div class="form-group">
                 <textarea class="form-control" type="textarea" ng-model="model.overview" placeholder="Overview if you want" maxlength="600" rows="7"></textarea>
@@ -126,7 +98,7 @@
             <hr class="colorgraph">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <button type="button" id="submit" name="submit" class="btn btn-primary btn-block btn-lg">Submit</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">Submit</button>
                 </div>
             </div>
         </form>

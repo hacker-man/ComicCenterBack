@@ -36495,7 +36495,55 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
         );
     }]);
 
-;
+;angular.module("comicApp")
+    .controller("SellItemController", ["$scope", "APIClient", "LogUser", function($scope, APIClient, LogUser) {
+        //scope init:
+        $scope.generos = [
+            'shonen',
+            'seinen',
+            'mecha',
+            'adventure',
+            'superheroes',
+            'sci-fi'
+        ];
+        $scope.model = {
+            ISBN: "",
+            titulo: "",
+            autor: "",
+            editorial: "",
+            num_paginas: "",
+            url_portada: "",
+            tipo: "",
+            genero: ['shonen'],
+            overview: ""
+        };
+        //controller methods:
+        $scope.saveItem = function() {
+            console.log("save:", $scope.model);
+            APIClient.registerItem($scope.model).then(
+                function(item) {
+                    $scope.model = {
+                        ISBN: "",
+                        titulo: "",
+                        autor: "",
+                        editorial: "",
+                        num_paginas: "",
+                        url_portada: "",
+                        tipo: "",
+                        genero: [],
+                        overview: ""
+                    }
+                    $scope.itemForm.$setPristine();
+                    $scope.model.tipo = 'comic';
+                    console.log("ITEM REGISTRADO", item);
+                },
+                function(err) {
+                    console.log("ERROR AL REGISTRAR ITEM", error);
+                }
+            );
+        }
+    }]);
+
 ;angular.module("comicApp")
 .controller("SettingsEditController",["$scope","LogUser",function($scope,LogUser){
   //scope init:
@@ -36524,6 +36572,148 @@ function($scope, APIClient) {
                 )
             };
         }]);
+
+;angular.module('comicApp')
+.directive('checklistModel', ['$parse', '$compile', function($parse, $compile) {
+  // contains
+  function contains(arr, item, comparator) {
+    if (angular.isArray(arr)) {
+      for (var i = arr.length; i--;) {
+        if (comparator(arr[i], item)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  // add
+  function add(arr, item, comparator) {
+    arr = angular.isArray(arr) ? arr : [];
+      if(!contains(arr, item, comparator)) {
+          arr.push(item);
+      }
+    return arr;
+  }
+
+  // remove
+  function remove(arr, item, comparator) {
+    if (angular.isArray(arr)) {
+      for (var i = arr.length; i--;) {
+        if (comparator(arr[i], item)) {
+          arr.splice(i, 1);
+          break;
+        }
+      }
+    }
+    return arr;
+  }
+
+  // http://stackoverflow.com/a/19228302/1458162
+  function postLinkFn(scope, elem, attrs) {
+     // exclude recursion, but still keep the model
+    var checklistModel = attrs.checklistModel;
+    attrs.$set("checklistModel", null);
+    // compile with `ng-model` pointing to `checked`
+    $compile(elem)(scope);
+    attrs.$set("checklistModel", checklistModel);
+
+    // getter / setter for original model
+    var getter = $parse(checklistModel);
+    var setter = getter.assign;
+    var checklistChange = $parse(attrs.checklistChange);
+    var checklistBeforeChange = $parse(attrs.checklistBeforeChange);
+
+    // value added to list
+    var value = attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
+
+
+    var comparator = angular.equals;
+
+    if (attrs.hasOwnProperty('checklistComparator')){
+      if (attrs.checklistComparator[0] == '.') {
+        var comparatorExpression = attrs.checklistComparator.substring(1);
+        comparator = function (a, b) {
+          return a[comparatorExpression] === b[comparatorExpression];
+        };
+
+      } else {
+        comparator = $parse(attrs.checklistComparator)(scope.$parent);
+      }
+    }
+
+    // watch UI checked change
+    scope.$watch(attrs.ngModel, function(newValue, oldValue) {
+      if (newValue === oldValue) {
+        return;
+      }
+
+      if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
+        scope[attrs.ngModel] = contains(getter(scope.$parent), value, comparator);
+        return;
+      }
+
+      setValueInChecklistModel(value, newValue);
+
+      if (checklistChange) {
+        checklistChange(scope);
+      }
+    });
+
+    function setValueInChecklistModel(value, checked) {
+      var current = getter(scope.$parent);
+      if (angular.isFunction(setter)) {
+        if (checked === true) {
+          setter(scope.$parent, add(current, value, comparator));
+        } else {
+          setter(scope.$parent, remove(current, value, comparator));
+        }
+      }
+
+    }
+
+    // declare one function to be used for both $watch functions
+    function setChecked(newArr, oldArr) {
+      if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
+        setValueInChecklistModel(value, scope[attrs.ngModel]);
+        return;
+      }
+      scope[attrs.ngModel] = contains(newArr, value, comparator);
+    }
+
+    // watch original model change
+    // use the faster $watchCollection method if it's available
+    if (angular.isFunction(scope.$parent.$watchCollection)) {
+        scope.$parent.$watchCollection(checklistModel, setChecked);
+    } else {
+        scope.$parent.$watch(checklistModel, setChecked, true);
+    }
+  }
+
+  return {
+    restrict: 'A',
+    priority: 1000,
+    terminal: true,
+    scope: true,
+    compile: function(tElement, tAttrs) {
+      if ((tElement[0].tagName !== 'INPUT' || tAttrs.type !== 'checkbox') && (tElement[0].tagName !== 'MD-CHECKBOX') && (!tAttrs.btnCheckbox)) {
+        throw 'checklist-model should be applied to `input[type="checkbox"]` or `md-checkbox`.';
+      }
+
+      if (!tAttrs.checklistValue && !tAttrs.value) {
+        throw 'You should provide `value` or `checklist-value`.';
+      }
+
+      // by default ngModel is 'checked', so we set it if not specified
+      if (!tAttrs.ngModel) {
+        // local scope var storing individual checkbox model
+        tAttrs.$set("ngModel", "checked");
+      }
+
+      return postLinkFn;
+    }
+  };
+}]);
 
 ;angular.module("comicApp").directive("mediaItemList",function(){
   return {
@@ -36613,6 +36803,19 @@ function($scope, APIClient) {
                 }
             );
             return deferred.promise;
+        };
+
+        this.registerItem = function(item){
+          var deferred = $q.defer();
+          $http.post(apiPaths.items,item).then(
+              function(response){
+                deferred.resolve(response.data);
+              },
+              function(response){
+                deferred.reject(response.data);
+              }
+          );
+          return deferred.promise;
         };
 
         this.logIn = function(credentials) {

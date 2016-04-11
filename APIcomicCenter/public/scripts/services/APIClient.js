@@ -62,6 +62,19 @@ angular.module("comicApp").service("APIClient", ["$http", "$q", "apiPaths", "pat
             return deferred.promise;
         };
 
+        this.registerItem = function(item){
+          var deferred = $q.defer();
+          $http.post(apiPaths.items,item).then(
+              function(response){
+                deferred.resolve(response.data);
+              },
+              function(response){
+                deferred.reject(response.data);
+              }
+          );
+          return deferred.promise;
+        };
+
         this.logIn = function(credentials) {
             var deferred = $q.defer();
             $http.post(apiPaths.loginApiPath, credentials).then(
