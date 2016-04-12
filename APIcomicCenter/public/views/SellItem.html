@@ -18,6 +18,12 @@
             });
         });
     </script>
+    <div class="alert alert-success col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" ng-show="successMessage">
+        {{successMessage}}
+    </div>
+    <div class="alert alert-danger col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3" ng-show="errorMessage">
+        {{errorMessage}}
+    </div>
     <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 col-lg-8 col-lg-offset-2">
         <form name="itemForm" role="form" ng-submit="saveItem()" novalidate>
             <br style="clear:both">

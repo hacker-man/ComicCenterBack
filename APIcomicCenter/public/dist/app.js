@@ -36527,6 +36527,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             console.log("save:", $scope.model);
             APIClient.registerItem($scope.model).then(
                 function(item) {
+                    $scope.successMessage = "¡Item share successfully!";
+                    $scope.errorMessage = false;
                     $scope.model = {
                         ISBN: "",
                         titulo: "",
@@ -36543,6 +36545,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
                     console.log("ITEM REGISTRADO", item);
                 },
                 function(err) {
+                    $scope.errorMessage = "Try again please";
+                    $scope.successMessage = false;
                     console.log("ERROR AL REGISTRAR ITEM", error);
                 }
             );
@@ -36560,20 +36564,24 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             email: email,
             tlf: tlf,
             nickname: nickname,
-            _id:id
+            _id: id
         }
         $scope.paths = paths;
         //scope methods:
-        $scope.editUser = function(){
-          APIClient.updateUser($scope.model).then(
-              function(response){
-                $scope.updateForm.$setPristine();
-                console.log("Usuario editado correctamente",response);
-              },
-              function(err){
-                console.log("Fallo al actualizar usuario",err);
-              }
-          );
+        $scope.editUser = function() {
+            APIClient.updateUser($scope.model).then(
+                function(response) {
+                    $scope.successMessage = "¡Profile edited successfully!";
+                    $scope.errorMessage = false;
+                    $scope.updateForm.$setPristine();
+                    console.log("Usuario editado correctamente", response);
+                },
+                function(err) {
+                    $scope.errorMessage = "Something is wrong,try again please";
+                    $scope.successMessage = false;
+                    console.log("Fallo al actualizar usuario", err);
+                }
+            );
         };
     }]);
 
@@ -36585,13 +36593,15 @@ function($scope, APIClient) {
             $scope.saveUser = function() {
                 APIClient.registerUser($scope.model).then(
                     function(movie) {
-                        $scope.successMessage = "¡User saved!";
+                        $scope.successMessage = "¡You have successfully registered!";
+                        $scope.errorMessage = false;
                         $scope.model = {};
                         $scope.registerForm.$setPristine();
                         console.log("USUARIO REGISTRADO", movie);
                     },
                     function(error) {
                         $scope.errorMessage = "This nickname is already in use";
+                        $scope.successMessage = false;
                         console.log("ERROR AL REGISTRAR USUARIO", error);
                     }
                 )

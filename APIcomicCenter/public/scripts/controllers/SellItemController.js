@@ -25,6 +25,8 @@ angular.module("comicApp")
             console.log("save:", $scope.model);
             APIClient.registerItem($scope.model).then(
                 function(item) {
+                    $scope.successMessage = "¡Item share successfully!";
+                    $scope.errorMessage = false;
                     $scope.model = {
                         ISBN: "",
                         titulo: "",
@@ -41,6 +43,8 @@ angular.module("comicApp")
                     console.log("ITEM REGISTRADO", item);
                 },
                 function(err) {
+                    $scope.errorMessage = "Try again please";
+                    $scope.successMessage = false;
                     console.log("ERROR AL REGISTRAR ITEM", error);
                 }
             );
