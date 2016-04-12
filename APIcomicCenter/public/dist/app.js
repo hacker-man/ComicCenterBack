@@ -36163,6 +36163,8 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             templateUrl: "views/SettingsEdit.html"
         }).when(paths.aboutUs,{
           templateUrl: "views/workInProgress.html"
+        }).when(paths.home,{
+          redirectTo: paths.aboutUs
         }).when(paths.auxiliar,{
             redirectTo: paths.itemsCartPath
         }).when(paths.auxiliar2,{
@@ -36511,6 +36513,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             'superheroes',
             'sci-fi'
         ];
+        var subidoPor = LogUser.getLogin();
         $scope.model = {
             ISBN: "",
             titulo: "",
@@ -36519,7 +36522,10 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
             num_paginas: "",
             url_portada: "",
             tipo: "",
+            precio: "",
             genero: ['shonen'],
+            en_carrito: "",
+            uploadBy: subidoPor,
             overview: ""
         };
         //controller methods:

@@ -9,6 +9,7 @@ angular.module("comicApp")
             'superheroes',
             'sci-fi'
         ];
+        var subidoPor = LogUser.getLogin();
         $scope.model = {
             ISBN: "",
             titulo: "",
@@ -17,7 +18,10 @@ angular.module("comicApp")
             num_paginas: "",
             url_portada: "",
             tipo: "",
+            precio: "",
             genero: ['shonen'],
+            en_carrito: "",
+            uploadBy: subidoPor,
             overview: ""
         };
         //controller methods:
